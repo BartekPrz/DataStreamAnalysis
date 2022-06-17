@@ -1,22 +1,18 @@
 package moa.classifiers.meta;
 
-import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.Instances;
 import moa.classifiers.lazy.neighboursearch.LinearNNSearch;
 import moa.classifiers.lazy.neighboursearch.NearestNeighbourSearch;
 
-public class NOLOB extends OOB {
+public class NUOBExtendsUOB extends UOB {
 
     public IntOption numberOfNeighboursOption = new IntOption("neighboursCount", 'k',
             "Number of neighbours taken into account during analysis", 5, 3, Integer.MAX_VALUE);
 
     public IntOption windowSizeOption = new IntOption("windowSize", 'w',
             "The window size used to analyze the neighbourhood of incoming example", 1000, 1, Integer.MAX_VALUE);
-
-    public FloatOption psiCoefficient = new FloatOption("psi", 'p',
-            "Additional coefficient for calculating safe level.", 1, 0.5, 3);
 
     protected Instances windowInstances;
 
@@ -28,7 +24,7 @@ public class NOLOB extends OOB {
 
     @Override
     public String getPurposeString() {
-        return "Neighbourhood oversampling online bagging for imbalanced data";
+        return "Neighbourhood undersampling online bagging for imbalanced data based on UOB algorithm";
     }
 
     @Override
@@ -61,10 +57,11 @@ public class NOLOB extends OOB {
     public double calculatePoissonLambda(Instance inst) {
         double lambda = 1d;
         int minClass = getMinorityClass();
+        double betaCoefficient = classSize[minClass] / classSize[1 - minClass];
 
-        if ((int) inst.classValue() == minClass) {
+        if ((int) inst.classValue() != minClass) {
             double safeLevelOfInstance = getSafeLevelOfInstance(inst);
-            return safeLevelOfInstance + 1;
+            return betaCoefficient * safeLevelOfInstance;
         }
 
         return lambda;
@@ -85,10 +82,10 @@ public class NOLOB extends OOB {
 
         for (int i = 0; i < neighbours.size(); ++i) {
             Instance neighbour = neighbours.get(i);
-            if ((int) neighbour.classValue() != inst.classValue())
+            if ((int) neighbour.classValue() == inst.classValue())
                 numberOfMajorityNeighbours += 1;
         }
 
-        return Math.pow(numberOfMajorityNeighbours, psiCoefficient.getValue()) / numberOfNeighbours;
+        return (double) numberOfMajorityNeighbours / numberOfNeighbours;
     }
 }

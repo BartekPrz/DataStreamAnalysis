@@ -1,66 +1,41 @@
 package moa.classifiers.meta;
 
+import com.github.javacliparser.FloatOption;
 import com.github.javacliparser.IntOption;
 import com.yahoo.labs.samoa.instances.Instance;
 import com.yahoo.labs.samoa.instances.Instances;
-import moa.classifiers.AbstractClassifier;
-import moa.classifiers.Classifier;
-import moa.classifiers.MultiClassClassifier;
 import moa.classifiers.lazy.neighboursearch.LinearNNSearch;
 import moa.classifiers.lazy.neighboursearch.NearestNeighbourSearch;
-import moa.core.DoubleVector;
-import moa.core.Measurement;
 import moa.core.MiscUtils;
-import moa.options.ClassOption;
 
 import java.util.Arrays;
 
-public class NeighbourhoodUnderOnlineBaggingNoDecay extends AbstractClassifier implements MultiClassClassifier {
+public class NeighbourhoodUnderOversamplingOnlineBagging extends OzaBag {
 
     private static final long serialVersionUID = 1L;
 
-    public ClassOption baseLearnerOption = new ClassOption("baseLearner", 'l',
-            "Classifier to train.", Classifier.class, "trees.HoeffdingTree");
-
-    public IntOption ensembleSizeOption = new IntOption("ensembleSize", 's',
-            "The number of models in the bag.", 10, 1, Integer.MAX_VALUE);
-
     public IntOption numberOfNeighboursOption = new IntOption("neighboursCount", 'k',
-            "Number of neighbours to take into account during analysis", 5, 3, Integer.MAX_VALUE);
+            "Number of neighbours taken into account during analysis", 5, 3, Integer.MAX_VALUE);
 
     public IntOption windowSizeOption = new IntOption("windowSize", 'w',
             "The window size used to analyze the neighbourhood of incoming example", 1000, 1, Integer.MAX_VALUE);
 
-    protected Classifier[] ensemble;
+    public FloatOption psiCoefficient = new FloatOption("psi", 'p',
+            "Additional coefficient for calculating safe level", 1, 0.5, 3);
 
     protected Instances windowInstances;
 
     protected NearestNeighbourSearch nearestNeighbourSearch;
 
-    protected double classSize[];
+    protected double[] classSize;
 
     protected int numberOfNeighbours = 0;
 
     protected int windowSize = 0;
 
-    protected int timestamp = 0;
-
     @Override
     public String getPurposeString() {
-        return "Neighbourhood online bagging for imbalanced data";
-    }
-
-    @Override
-    public double[] getVotesForInstance(Instance inst) {
-        DoubleVector combinedVote = new DoubleVector();
-        for (int i = 0; i < this.ensemble.length; i++) {
-            DoubleVector vote = new DoubleVector(this.ensemble[i].getVotesForInstance(inst));
-            if (vote.sumOfValues() > 0.0) {
-                vote.normalize();
-                combinedVote.addValues(vote);
-            }
-        }
-        return combinedVote.getArrayRef();
+        return "Neighbourhood under-oversampling online bagging for imbalanced data";
     }
 
     @Override
@@ -69,27 +44,20 @@ public class NeighbourhoodUnderOnlineBaggingNoDecay extends AbstractClassifier i
         this.windowSize = this.windowSizeOption.getValue();
         this.numberOfNeighbours = this.numberOfNeighboursOption.getValue();
         this.nearestNeighbourSearch = new LinearNNSearch();
-
-        this.ensemble = new Classifier[this.ensembleSizeOption.getValue()];
-        Classifier baseLearner = (Classifier) getPreparedClassOption(this.baseLearnerOption);
-        baseLearner.resetLearning();
-        for (int i = 0; i < this.ensemble.length; i++) {
-            this.ensemble[i] = baseLearner.copy();
-        }
+        super.resetLearningImpl();
     }
 
     @Override
     public void trainOnInstanceImpl(Instance inst) {
-        initVariables();
+        this.initVariables();
 
-        this.timestamp += 1;
         updateClassSize(inst);
         double lambda = calculatePoissonLambda(inst);
 
         for (int i = 0; i < this.ensemble.length; i++) {
             int k = MiscUtils.poisson(lambda, this.classifierRandom);
             if (k > 0) {
-                Instance weightedInst = (Instance) inst.copy();
+                Instance weightedInst = inst.copy();
                 weightedInst.setWeight(inst.weight() * k);
                 this.ensemble[i].trainOnInstance(weightedInst);
             }
@@ -110,25 +78,30 @@ public class NeighbourhoodUnderOnlineBaggingNoDecay extends AbstractClassifier i
     protected void updateClassSize(Instance inst) {
         if (this.classSize == null) {
             classSize = new double[inst.numClasses()];
-            Arrays.fill(classSize, 1d / classSize.length);
+
+            Arrays.fill(classSize, 0d);
         }
 
-        for (int i = 0; i < classSize.length; ++i) {
-            classSize[i] = ((this.timestamp - 1) * classSize[i] + ((int) inst.classValue() == i ? 1d : 0d)) / this.timestamp;
+        if (this.windowInstances.size() == windowSize) {
+            classSize[(int) this.windowInstances.get(0).classValue()]--;
         }
+
+        classSize[(int) inst.classValue()]++;
     }
 
-    public double calculatePoissonLambda(Instance inst) {
+    private double calculatePoissonLambda(Instance inst) {
         double lambda = 1d;
         int minClass = getMinorityClass();
-        double betaCoefficient = classSize[minClass] / classSize[1 - minClass];
+        int majClass = getMajorityClass();
+        double denominator = classSize[minClass] != 0 ? classSize[minClass] : 1;
+        double betaCoefficient = classSize[1 - minClass] / denominator;
 
-        if ((int) inst.classValue() != minClass && betaCoefficient != 0) {
-            double safeLevelOfInstance = getSafeLevelOfInstance(inst);
-            return betaCoefficient * safeLevelOfInstance;
+        if ((int) inst.classValue() == minClass) {
+            double safeLevelOfInstance = getSafeLevelOfInstance(inst, majClass, psiCoefficient.getValue());
+            return betaCoefficient * (safeLevelOfInstance + 1);
         }
 
-        return lambda;
+        return Math.pow(getSafeLevelOfInstance(inst, majClass, 1), psiCoefficient.getValue());
     }
 
     public int getMajorityClass() {
@@ -153,13 +126,9 @@ public class NeighbourhoodUnderOnlineBaggingNoDecay extends AbstractClassifier i
         return indexMin;
     }
 
-    public double getSafeLevelOfInstance(Instance inst) {
-        double safeLevel = 1d;
+    private double getSafeLevelOfInstance(Instance inst, int classValue, double psiCoefficient) {
         int numberOfMajorityNeighbours = 0;
-
-        if (windowInstances.size() < numberOfNeighbours) {
-            return safeLevel;
-        }
+        double safeLevel = 1d;
 
         Instances neighbours;
         try {
@@ -170,27 +139,12 @@ public class NeighbourhoodUnderOnlineBaggingNoDecay extends AbstractClassifier i
             return safeLevel;
         }
 
-
-        for (int i = 0; i < numberOfNeighbours; ++i) {
+        for (int i = 0; i < neighbours.size(); ++i) {
             Instance neighbour = neighbours.get(i);
-            if ((int) neighbour.classValue() == inst.classValue())
+            if ((int) neighbour.classValue() == classValue)
                 numberOfMajorityNeighbours += 1;
         }
 
-        return (double) numberOfMajorityNeighbours / numberOfNeighbours;
-    }
-
-    @Override
-    protected Measurement[] getModelMeasurementsImpl() {
-        return new Measurement[0];
-    }
-
-    @Override
-    public void getModelDescription(StringBuilder out, int indent) {
-    }
-
-    @Override
-    public boolean isRandomizable() {
-        return true;
+        return Math.pow(numberOfMajorityNeighbours, psiCoefficient) / numberOfNeighbours;
     }
 }

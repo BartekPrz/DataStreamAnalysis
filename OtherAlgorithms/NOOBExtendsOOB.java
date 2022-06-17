@@ -7,16 +7,16 @@ import com.yahoo.labs.samoa.instances.Instances;
 import moa.classifiers.lazy.neighboursearch.LinearNNSearch;
 import moa.classifiers.lazy.neighboursearch.NearestNeighbourSearch;
 
-public class NeigbourhoodOversamplingOnlineBagging extends OOB {
+public class NOOBExtendsOOB extends OOB {
 
     public IntOption numberOfNeighboursOption = new IntOption("neighboursCount", 'k',
-            "Number of neighbours to take into account during analysis", 5, 3, Integer.MAX_VALUE);
+            "Number of neighbours taken into account during analysis", 5, 3, Integer.MAX_VALUE);
 
     public IntOption windowSizeOption = new IntOption("windowSize", 'w',
             "The window size used to analyze the neighbourhood of incoming example", 1000, 1, Integer.MAX_VALUE);
 
     public FloatOption psiCoefficient = new FloatOption("psi", 'p',
-            "Additional coefficient for calculating safe level.", 1, 0.5, 3);
+            "Additional coefficient for calculating safe level", 1, 0.5, 3);
 
     protected Instances windowInstances;
 
@@ -28,7 +28,7 @@ public class NeigbourhoodOversamplingOnlineBagging extends OOB {
 
     @Override
     public String getPurposeString() {
-        return "Neighbourhood undersampling online bagging for imbalanced data";
+        return "Neighbourhood oversampling online bagging for imbalanced data based on OOB algorithm";
     }
 
     @Override
