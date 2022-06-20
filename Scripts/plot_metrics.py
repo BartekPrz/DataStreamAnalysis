@@ -1,3 +1,11 @@
+"""
+
+ReadMe:
+
+This implementation is taken from: https://github.com/dabrze/imbalanced-stream-generator/blob/master/scripts/plot_metrics.py
+
+"""
+
 import matplotlib
 matplotlib.use('Agg')
 import pandas as pd

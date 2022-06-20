@@ -1,3 +1,11 @@
+"""
+
+ReadMe:
+
+This implementation is taken from: https://github.com/dabrze/imbalanced-stream-generator/blob/master/scripts/generate_avg_measures.py
+
+"""
+
 import pandas as pd
 import os
 import argparse
