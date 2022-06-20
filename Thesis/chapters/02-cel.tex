@@ -1,0 +1,34 @@
+\chapter{Cel i zakres pracy}
+
+\noindent Celem pracy jest zaprojektowanie nowych algorytmów, skupiających się na przetwarzaniu niezbalansowanych i zmiennych strumieni danych, dla których rozważane spektrum zmian, poza zmianą globalnego współczynnika niezbalansowania (\english{global imbalance ratio}) obejmowałoby dodatkowe czynniki trudności takie jak np. podział grupy przykładów z klasy mniejszościowej na kilka mniejszych grup czy napływ przypadków określonego typu. Wymienione czynniki trudności zostały szerzej opisane w pracy \cite{Article:TypyPrzykladow} oraz sekcji \ref{Section:DriftDataDistribution}. W tym celu stworzone algorytmy będą korzystać ze sztucznych, specjalnie wygenerowanych strumieni danych, które będą zawierały specjalne, określone własności. Sposób generowania określonych strumieni danych został szczegółowo opisany w rozdziale \ref{Chapter:Generator}. Ostatecznym rezultatem pracy będzie zaprezentowanie szczegółowych wyników oraz wykresów pokazujących jak prezentują się zaproponowane modyfikacje na tle ich algorytmów bazowych/podstawowych.\\
+
+\noindent Struktura i budowa pracy jest następująca:
+
+\begin{itemize}
+    \item W rozdziale 3 przedstawiono przegląd badań oraz literatury na temat eksploracji niezbalansowanych i zmiennych strumieni danych, podstawowe pojęcia z tej dziedziny oraz opisy istniejących algorytmów przetwarzania strumieni potrzebne do zrozumienia dalszej części pracy
+    \item W rozdziale 4 szczegółowo został opisany wykorzystany generator strumieni danych, na podstawie którego wyników dokonywano późniejszego etapu uczenia algorytmów
+    \item W rozdziale 5 zawarto propozycje własnych modyfikacji algorytmów bazowych wraz z ich szczegółowym opisem oraz motywacją odpowiadającą za wprowadzenie określonej modyfikacji
+    \item W rozdziale 6 przedstawione zostały wyniki eksperymentów z testowania zaproponowanych algorytmów uczenia maszynowego wraz z porównaniem ich do istniejących już w literaturze algorytmów
+    \item W rozdziale 7 przedstawiono podsumowanie niniejszej rozprawy wraz z możliwymi dalszymi kierunkami rozwoju tematu
+\end{itemize}
+
+\newpage
+
+\section{Wykorzystane narzędzia i technologie}
+
+\begin{itemize}
+    \item Języki programowania: \textit{Java}, \textit{Python}
+    \item Biblioteki: \textit{Massive Online Analysis (MOA)}\cite{Article:MOA}, \textit{pandas}, \textit{numpy}, \textit{matplotlib}
+    \item Środowiska programistyczne: \textit{IntelliJ IDEA Community Edition}, \textit{Microsoft Visual Studio Code}
+\end{itemize}
+
+\section{Środowisko eksperymentalne}
+
+\noindent Wszystkie eksperymenty zostały wykonane na maszynie roboczej charakteryzującą się określonymi parametrami:
+
+\begin{itemize}
+    \item Procesor: Intel Core i5-6400 2.70 GHz
+    \item Pamięć RAM: 8.00 GB
+    \item Karta graficzna: NVIDIA GeForce GTX 970
+    \item System operacyjny: Windows 10 Home
+\end{itemize}

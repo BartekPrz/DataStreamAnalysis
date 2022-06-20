@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template        %%
+%% Copyleft by Dawid Weiss & Marta Szachniuk    %%
+%% Faculty of Computing and Telecommunication   %%
+%% Poznan University of Technology, 2020        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Szkielet dla pracy licencjackiej pisanej w języku polskim.
+
+\documentclass[polish,master,a4paper,oneside,11pt]{ppfcmthesis}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{subfig}
+
+\counterwithin{algorithm}{chapter}
+
+%--------------------------------------
+% Strona tytułowa
+%--------------------------------------
+
+% Autorzy pracy, jeśli jest ich więcej niż jeden
+% wstaw między nimi separator \and
+\author{%
+   Bartosz Przybył \album{136785}}
+\authortitle{}                                % Do not change.
+
+\title{Poprawa klasyfikacji niezbalansowanych i zmiennych strumieni danych}
+
+% Your supervisor comes here.
+\ppsupervisor{prof.~dr hab.~inż.~Jerzy Stefanowski} 
+
+% Year of final submission (not graduation!)
+\ppyear{2022}                                 
+
+
+\begin{document}
+
+% Front matter starts here
+\frontmatter\pagestyle{empty}%
+\maketitle\cleardoublepage%
+
+%--------------------------------------
+% Podziękowania
+\newpage\null\thispagestyle{empty}\newpage
+\begin{center}
+    \huge Podziękowania
+\end{center}
+%--------------------------------------
+
+% Streszczenie
+\newpage\null\thispagestyle{empty}\newpage
+\newpage
+\begin{center}
+    \huge Streszczenie
+\end{center}
+Streszczenie\\\\
+
+\begin{center}
+    \huge Abstract
+\end{center}
+Abstract
+%--------------------------------------
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+\newpage\null\thispagestyle{empty}\newpage
+\newpage
+\pagenumbering{Roman}\pagestyle{ppfcmthesis}%
+\tableofcontents* 
+\cleardoublepage % Zaczynamy od nieparzystej strony
+
+%--------------------------------------
+% Rozdziały
+%--------------------------------------
+
+%Najwygodniej jeśli każdy rozdział znajduje się w oddzielnym pliku
+\mainmatter%
+\input{chapters/01-wstep.tex}
+\input{chapters/02-cel.tex}
+\input{chapters/03-teoria.tex}
+\input{chapters/04-generator}
+\input{chapters/05-praca-wlasna.tex}
+\input{chapters/06-wyniki.tex}
+\input{chapters/07-zakonczenie.tex}
+
+%--------------------------------------
+% Literatura
+%--------------------------------------
+
+\bibliographystyle{plain}{\raggedright\sloppy\small\bibliography{bibliografia}}
+
+%--------------------------------------
+% Dodatki
+%--------------------------------------
+
+\cleardoublepage\appendix%
+\newpage
+\input{chapters/zalacznik.tex}
+
+%--------------------------------------
+% Informacja o prawach autorskich
+%--------------------------------------
+
+\ppcolophon
+
+\end{document}
