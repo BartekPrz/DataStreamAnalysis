@@ -15,12 +15,12 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
 
 \begin{itemize}
     \item Static Imbalance (SI) - określa procent przykładów z klasy mniejszościowej znajdujących się w strumieniu przez cały okres działania algorytmu
-    \item Imbalance Drift (ID) - określa procent przykładów z klasy mniejszościowej, które docelowo znajdą się w strumieniu danych po zaobserwowaniu dryfu koncepcji
-    \item Example Types (TD), Borderline - określa procent przykładów z klasy mniejszościowej oznaczonych jako przypadki \textit{Borderline}, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu koncepcji
-    \item Example Types (TD), Rare - określa procent przykładów z klasy mniejszościowej oznaczonych jako przypadki \textit{Rare}, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu koncepcji
-    \item Class composition (CD), Split - określa na ile klastrów ma nastąpić podział grupy klasy mniejszościowej, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu koncepcji
-    \item Class composition (CD), Move - określa ile klastrów oznaczonych jako klastry klasy mniejszościowej ma się przemieść w przestrzeni atrybutów w ramach określonego dryfu koncepcji
-    \item Class composition (CD), Merge - określa ile klastrów oznaczonych jako klastry klasy mniejszościowej ma pozostać w przestrzeni atrybutów po wykonaniu operacji połączenia klastrów w ramach określonego dryfu koncepcji
+    \item Imbalance Drift (ID) - określa procent przykładów z klasy mniejszościowej, które docelowo znajdą się w strumieniu danych po zaobserwowaniu dryfu pojęć
+    \item Example Types (TD), Borderline - określa procent przykładów z klasy mniejszościowej oznaczonych jako przypadki \textit{Borderline}, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu pojęć
+    \item Example Types (TD), Rare - określa procent przykładów z klasy mniejszościowej oznaczonych jako przypadki \textit{Rare}, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu pojęć
+    \item Class composition (CD), Split - określa na ile skupisk ma nastąpić podział grupy klasy mniejszościowej, które docelowo znajdą się w strumieniu po zaobserwowaniu dryfu pojęć
+    \item Class composition (CD), Move - określa ile skupisk oznaczonych jako skupiska klasy mniejszościowej ma się przemieść w przestrzeni atrybutów w ramach określonego dryfu pojęć
+    \item Class composition (CD), Merge - określa ile skupisk oznaczonych jako skupiska klasy mniejszościowej ma pozostać w przestrzeni atrybutów po wykonaniu operacji połączenia skupisk w ramach określonego dryfu pojęć
 \end{itemize}
 
 \newpage
@@ -33,7 +33,7 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
     \caption{Rodzaje typów zmian obsługiwanych przez generator strumieni danych \cite{Article:TypyPrzykladow}}\label{Figure:DriftCriteria}
 \end{figure}
 
-\noindent Na rysunku \ref{Figure:DriftCriteria} przedstawiono problem klasyfikacji binarnej. Klasa mniejszościowa na przedstawionych ilustracjach została oznaczona odpowiednio kolorami: pomarańczowym, niebieskim, czerwonym oraz zielonym. Klasa większościowa na każdej z ilustracji została oznaczona kolorem szarym. Na podstawie rysunku można zobaczyć jak wyglądają operacje: podziału grupy klasy mniejszościowej na kilka mniejszych klastrów (\textit{class split drift}), połączenia klastrów klasy mniejszościowej w jeden większy klaster (\textit{class merge drift}), zmiany liczności przykładów w danych klasach (\textit{dynamic imbalance ratio, class swap}), zmiany rozkładu danych poprzez napływ przykładów danego typu (\textit{minority example distribution change}) oraz przemieszania się klastrów w przestrzeni atrybutów (\textit{region drift}). 
+\noindent Na rysunku \ref{Figure:DriftCriteria} przedstawiono problem klasyfikacji binarnej. Klasa mniejszościowa na przedstawionych ilustracjach została oznaczona odpowiednio kolorami: pomarańczowym, niebieskim, czerwonym oraz zielonym. Klasa większościowa na każdej z ilustracji została oznaczona kolorem szarym. Na podstawie rysunku można zobaczyć jak wyglądają operacje: podziału grupy klasy mniejszościowej na kilka mniejszych skupisk (\textit{class split drift}), połączenia grup klasy mniejszościowej w jedno większe skupisko (\textit{class merge drift}), zmiany liczności przykładów w danych klasach (\textit{dynamic imbalance ratio, class swap}), zmiany rozkładu danych poprzez napływ przykładów danego typu (\textit{minority example distribution change}) oraz przemieszania się skupisk w przestrzeni atrybutów (\textit{region drift}). 
 
 \section{Proces generowania danych}
 
@@ -55,12 +55,12 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
 
 \section{Przykładowe instancje wygenerowanych strumieni danych}
 
-\noindent W ramach niniejszej sekcji przedstawione zostaną przykładowe instancje wygenerowanych strumieni danych wraz z wytłumaczeniem konwencji nazewnictwa, która jest wykorzystywana w dalszej części pracy. W ramach procesu generacji udało się stworzyć 381 różnych instancji strumieni danych biorąc pod uwagę różnego rodzaje typy zmian, które mogą zajść w strumieniu oraz możliwość zaistnienia kilku typów zmian jednocześnie. Warto też zwrócić uwagę na fakt, że każdy z stworzonych strumieni danych zawiera dokładnie 200 000 przykładów, gdzie każdy przykład opisany jest przez 5 atrybutów numerycznych oraz etykietę binarną. Jeżeli w strumieniu występuje dryf koncepcji to jest to dryf stopniowy (\textit{incremental}), który ma miejsce od momentu przetwarzania przykładu numer 70 000 do momentu przetworzenia przykładu numer 100 000. Dodatkowo każda z klas, przed możliwym wystąpieniem dryfu, jest równoliczna (jeśli nie skorzystano z opcji \textit{StaticIm}) oraz wszystkie przykłady z klasy mniejszościowej oraz większościowej oznaczone są oznaczone jako typ \textit{Safe}. Jeden z przykładów z pracy \cite{Article:TypyPrzykladow} obrazujący podstawowe metryki badanych strumieni można przeanalizować na rysunku \ref{Figure:DriftExample}.
+\noindent W ramach niniejszej sekcji przedstawione zostaną przykładowe instancje wygenerowanych strumieni danych wraz z wytłumaczeniem konwencji nazewnictwa, która jest wykorzystywana w dalszej części pracy. W ramach procesu generacji udało się stworzyć 381 różnych instancji strumieni danych biorąc pod uwagę różnego rodzaje typy zmian, które mogą zajść w strumieniu oraz możliwość zaistnienia kilku typów zmian jednocześnie. Warto też zwrócić uwagę na fakt, że każdy z stworzonych strumieni danych zawiera dokładnie 200 000 przykładów, gdzie każdy przykład opisany jest przez 5 atrybutów numerycznych oraz etykietę binarną. Jeżeli w strumieniu występuje dryf pojęć to jest to dryf stopniowy (\textit{incremental}), który ma miejsce od momentu przetwarzania przykładu numer 70 000 do momentu przetworzenia przykładu numer 100 000. Dodatkowo każda z klas, przed możliwym wystąpieniem dryfu, jest równoliczna (jeśli nie skorzystano z opcji \textit{StaticIm}) oraz wszystkie przykłady z klasy mniejszościowej oraz większościowej oznaczone są oznaczone jako typ \textit{Safe}. Jeden z przykładów z pracy \cite{Article:TypyPrzykladow} obrazujący podstawowe miary badanych strumieni można przeanalizować na rysunku \ref{Figure:DriftExample}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=13cm]{figures/drift_example.JPG}
-    \caption{Ewaluacja jednego z przykładowych strumieni danych zaprezentowanego w pracy \cite{Article:TypyPrzykladow}}\label{Figure:DriftExample}
+    \caption{Ocena jednego z przykładowych strumieni danych zaprezentowanego w pracy \cite{Article:TypyPrzykladow}}\label{Figure:DriftExample}
 \end{figure}
 
 W dalszej części pracy będzie wykorzystywana określona konwencja nazewnictwa wygenerowanych strumieni danych. Wykorzystana konwencja została wytłumaczona poniżej na kilku przykładach wygenerowanych nazw:
@@ -68,8 +68,8 @@ W dalszej części pracy będzie wykorzystywana określona konwencja nazewnictwa
 \begin{itemize}
     \item \textit{Borderline20+Rare20} - oznacza napływ 20\% przykładów typu \textit{Borderline} i \textit{Rare} podczas zaobserwowanego dryfu
     \item \textit{Im1+Rare60} - oznacza napływ 60\% przykładów typu \textit{Rare} oraz zmianę liczności przykładów z klasy mniejszościowej na 1\% podczas zaobserwowanego dryfu
-    \item \textit{Split5+Borderline40} - oznacza napływ 40\% przykładów typu \textit{Borderline} oraz podział klastra przykładów klasy mniejszościowej na 5 mniejszych klastrów podczas zaobserwowanego dryfu
+    \item \textit{Split5+Borderline40} - oznacza napływ 40\% przykładów typu \textit{Borderline} oraz podział skupiska przykładów klasy mniejszościowej na 5 mniejszych skupisk podczas zaobserwowanego dryfu
     \item \textit{StaticIm40+Im90} - oznacza, że na samym początku w strumieniu było 40\% przykładów z klasy mniejszościowej, gdzie po zaobserwowaniu dryfu wartość ta zmieniła się do 90\%
     \item \textit{Im10+Borderline40+Rare40} - oznacza napływ 40\% przykładów typu \textit{Borderline} i \textit{Rare} oraz zmianę liczności przykładów z klasy mniejszościowej na 10\% po zaobserwowaniu dryfu
-    \item \textit{StaticIm10+Split5+Im1+Borderline40+Rare40} - oznacza napływ 40\% przykładów typu \textit{Borderline} i \textit{Rare}, zmianę liczności przykładów z klasy mniejszościowej z 10\% na 1\% oraz podział klastra przykładów klasy mniejszościowej na 5 mniejszych klastrów
+    \item \textit{StaticIm10+Split5+Im1+Borderline40+Rare40} - oznacza napływ 40\% przykładów typu \textit{Borderline} i \textit{Rare}, zmianę liczności przykładów z klasy mniejszościowej z 10\% na 1\% oraz podział skupiska przykładów klasy mniejszościowej na 5 mniejszych skupisk
 \end{itemize}

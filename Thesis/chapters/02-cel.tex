@@ -1,6 +1,6 @@
 \chapter{Cel i zakres pracy}
 
-\noindent Celem pracy jest zaprojektowanie nowych algorytmów, skupiających się na przetwarzaniu niezbalansowanych i zmiennych strumieni danych, dla których rozważane spektrum zmian, poza zmianą globalnego współczynnika niezbalansowania (\english{global imbalance ratio}) obejmowałoby dodatkowe czynniki trudności takie jak np. podział grupy przykładów z klasy mniejszościowej na kilka mniejszych grup czy napływ przypadków określonego typu. Wymienione czynniki trudności zostały szerzej opisane w pracy \cite{Article:TypyPrzykladow} oraz sekcji \ref{Section:DriftDataDistribution}. W tym celu stworzone algorytmy będą korzystać ze sztucznych, specjalnie wygenerowanych strumieni danych, które będą zawierały specjalne, określone własności. Sposób generowania określonych strumieni danych został szczegółowo opisany w rozdziale \ref{Chapter:Generator}. Ostatecznym rezultatem pracy będzie zaprezentowanie szczegółowych wyników oraz wykresów pokazujących jak prezentują się zaproponowane modyfikacje na tle ich algorytmów bazowych/podstawowych.\\
+\noindent Celem pracy jest zaprojektowanie nowych algorytmów, skupiających się na przetwarzaniu niezbalansowanych i zmiennych strumieni danych, dla których rozważane spektrum zmian, poza zmianą globalnego współczynnika niezbalansowania (\english{global imbalance ratio}) obejmowałoby dodatkowe czynniki trudności takie jak, np. podział grupy przykładów z klasy mniejszościowej na kilka mniejszych grup czy pojawianie się przykładów o różnym typie trudności. Wymienione czynniki trudności zostały szerzej opisane w pracy \cite{Article:TypyPrzykladow} oraz sekcji \ref{Section:DriftDataDistribution}. W tym celu stworzone algorytmy będą korzystać ze sztucznych, specjalnie wygenerowanych strumieni danych, które będą zawierały specjalne, określone własności. Sposób generowania określonych strumieni danych został szczegółowo opisany w rozdziale \ref{Chapter:Generator}. Zaproponowane algorytmy zostaną przedstawione jako rozszerzenie istniejącego w literaturze algorytmu \textit{Online Bagging (OB)} oraz jego modyfikacji, opierających się na manipulacji zawartością zbioru uczącego \textit{Undersampling Online Bagging (UOB)} oraz \textit{Oversampling Online Bagging (OOB)}. Ostatecznym rezultatem pracy będzie zaprezentowanie szczegółowych wyników oraz wykresów pokazujących jak prezentują się zaproponowane modyfikacje na tle ich algorytmów podstawowych.\\
 
 \noindent Struktura i budowa pracy jest następująca:
 
@@ -12,12 +12,10 @@
     \item W rozdziale 7 przedstawiono podsumowanie niniejszej rozprawy wraz z możliwymi dalszymi kierunkami rozwoju tematu
 \end{itemize}
 
-\newpage
-
 \section{Wykorzystane narzędzia i technologie}
 
 \begin{itemize}
-    \item Języki programowania: \textit{Java}, \textit{Python}
+    \item Języki programowania: \textit{Java (wer. 1.8)}, \textit{Python (wer. 3.6.4)}
     \item Biblioteki: \textit{Massive Online Analysis (MOA)}\cite{Article:MOA}, \textit{pandas}, \textit{numpy}, \textit{matplotlib}
     \item Środowiska programistyczne: \textit{IntelliJ IDEA Community Edition}, \textit{Microsoft Visual Studio Code}
 \end{itemize}
