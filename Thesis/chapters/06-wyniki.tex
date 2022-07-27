@@ -13,7 +13,7 @@ Zarówno miara \textit{Recall} jak i \textit{G-mean} zostały obliczone przy wyk
 
 Dodatkowo odnotowane wartości miar zostały uśrednione dla badanych strumieni danych, co stanowiło podstawę do przeprowadzenia testu statystycznego rang Friedman'a \cite{Article:Friedman}, którego celem było porównanie jakości klasyfikacji badanych klasyfikatorów \cite{Article:TypyPrzykladow}. Ze względu na zbyt dużą liczbę przeprowadzonych eksperymentów, w rozdziale tym zawarte zostały tylko najbardziej reprezentatywne wykresy. Pozostałe wyniki, które nie zostały przedstawione w niniejszej rozprawie, są dostępne do wglądu w repozytorium, dostępnym jako załącznik \ref{Chapter:Repository} do rozprawy.
 
-Organizacja oraz struktura prezentacji wyników oceny eksperymentalnej jest inspirowana pracą \cite{Article:TypyPrzykladow}.
+Organizacja oraz struktura prezentacji wyników oceny eksperymentalnej jest inspirowana pracą \cite{Article:TypyPrzykladow}. Zaprezentowane w tym rozdziale algorytmy zostały zaimplementowane w języku \textit{Java} przy pomocy biblioteki \textit{Massive Online Analysis (MOA)} \cite{Article:MOA}. W przypadku algorytmów \textit{OOB} oraz \textit{UOB} skorzystano z implementacji autorstwa Leandro L. Minku dostępnej na platformie \textit{GitHub}\footnote{\url{https://github.com/minkull/UOB-OOB-MultiClass}}. Wszelakie skrypty, konieczne do wygenerowania wykresów wykorzystanych w niniejszej rozprawie, pochodzą z ogólnodostępnego repozytorium \textit{GitHub}\footnote{\url{https://github.com/dabrze/imbalanced-stream-generator}} Dariusza Brzezińskiego.
 
 \section{Porównanie istniejących algorytmów z nowymi propozycjami}
 \label{Section:AlgorithmsComparison}
@@ -41,7 +41,7 @@ Organizacja oraz struktura prezentacji wyników oceny eksperymentalnej jest insp
 
 \noindent W przypadku wyboru wartości parametrów dla liczby najbliższych sąsiadów zdecydowano się posłużyć eksperymentami wykonanymi przez autorów pracy \cite{Article:NNBag}. W ramach swojej pracy przetestowali różne wartości parametrów dla $k$ = 5, 7, 9 i 11. Końcowym wynikiem oceny eksperymentalnej był wniosek dotyczący tego, że dobre rezultaty jakości klasyfikacji można osiągnąć dla małych wartości parametru $k$ zarówno dla \textit{undersampling'u} jak i \textit{oversampling'u}. Dla parametrów dotyczących wielkości okna przesuwnego oraz dodatkowego współczynnika do obliczania poziomu bezpieczeństwa zdecydowano się przeprowadzić dodatkowe testy na wybranych strumieniach danych.
 
-Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $500$ oraz $1000$. Wyniki dotyczące jakości klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:WindowParametrization1} i \ref{Figure:WindowParametrization2}.
+Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $500$ oraz $1000$. W ramach wykonanego eksperymentu przetestowano wiele scenariuszy, jednak ze względu na długość pracy, zostaną zaprezentowane jedynie trzy przykładowe scenariusze w celach wizualizacji. Wyniki dotyczące jakości klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:WindowParametrization1} i \ref{Figure:WindowParametrization2}.
 
 \begin{figure}[h]
     \centering
@@ -51,13 +51,14 @@ Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $
     \caption{Wykresy liniowe miary \textit{G-mean} dla strumieni \textit{Rare60} (po lewej) oraz \textit{Im1+Rare100} (po prawej). Liczba zawarta w nazwie algorytmu oznacza wielkość okna przesuwnego}\label{Figure:WindowParametrization1}
 \end{figure}
 
+\newpage
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=9cm]{figures/split5im1borderline40rare40_window.png}
+    \includegraphics[width=10cm]{figures/split5im1borderline40rare40_window.png}
     \caption{Wykres liniowy miary \textit{G-mean} dla strumienia \textit{Split5+Im1+Borderline40+Rare40}. Liczba zawarta w nazwie algorytmu oznacza wielkość okna przesuwnego}\label{Figure:WindowParametrization2}
 \end{figure}
 
-\newpage
 
 \noindent Jak można zaobserwować na zaprezentowanych rysunkach różnice w jakości klasyfikacji dla zaproponowanych algorytmów są niewielkie między wartością 500 a 1000 dla parametru wielkości okna przesuwnego. Z tego powodu dalsze eksperymenty zdecydowano się przeprowadzić dla wartości parametru równej 500.
 
@@ -71,9 +72,11 @@ Podobna analiza została przeprowadzona dla parametru dotyczącego współczynni
     \caption{Wykresy liniowe miary \textit{G-mean} dla strumieni \textit{Rare60} (po lewej) oraz \textit{Im1+Rare100} (po prawej). Liczba zawarta w nazwie algorytmu oznacza wartość współczynnika (liczba 15 oznacza wartość równą 1.5)}\label{Figure:PsiParametrization1}
 \end{figure}
 
+\newpage
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=8cm]{figures/split5im1borderline40rare40_psi.png}
+    \includegraphics[width=10cm]{figures/split5im1borderline40rare40_psi.png}
     \caption{Wykres liniowy miary \textit{G-mean} dla strumienia \textit{Split5+Im1+Borderline40+Rare40}. Liczba zawarta w nazwie algorytmu oznacza wartość współczynnika (liczba 15 oznacza wartość równą 1.5)}\label{Figure:PsiParametrization2}
 \end{figure}
 
@@ -210,7 +213,7 @@ Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie 
 
 \noindent \textbf{Napływ przykładów określonego typu}\\
 
-\noindent Ostatnim z analizowanych czynników trudności będzie napływ przykładów określonego typu. W ramach tej analizy rozważone zostaną przykłady o typie granicznym (\english{borderline}) oraz rzadkim (\english{rare}).
+\noindent Ostatnim z analizowanych czynników trudności będzie napływ przykładów określonego typu. W ramach tej analizy rozważone zostaną przykłady o typie brzegowym (\english{borderline}) oraz rzadkim (\english{rare}).
 
 \begin{table}[ht]
 \centering\small%
@@ -339,7 +342,7 @@ Rare examples & & \textbf{3.90} & \textbf{3.80} & \textbf{2.80} & \textbf{2.10} 
     \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparison}
 \end{figure}
 
-\noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparison} algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Z drugiej strony należy też zwrócić uwagę, że algorytmy \textit{OB} oraz \textit{OOB} kompletnie nie radzą sobie z klasyfikacją trudnych strumieni danych - na strumieniu \textit{Im1+Rare100} wartość miar \textit{G-mean} oraz \textit{Recall} oscyluje koło wartości 0.4.
+\noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparison} algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Przykładowo dla strumienia \textit{Im1+Rare80} wartość miary \textit{G-mean} dla algorytmu \textit{NOOB} wynosi około 0.8, podczas gdy dla pozostałych algorytmów jest to wartość około 0.65. Podobne rezultaty można zaobserwować dla tego samego strumienia dla miary \textit{Recall}. Dla podejścia \textit{NOOB} jest to wartość około 0.75, a dla pozostałych algorytmów około 0.5. Analogiczną sytuację można zaobserwować na strumieniu \textit{Im10+Rare60} lub \textit{Im10+Rare40}. Należy także zwrócić uwagę na obserwację dotyczącą tego, że algorytmy \textit{OB} oraz \textit{OOB} kompletnie nie radzą sobie z klasyfikacją trudnych strumieni danych - na strumieniu \textit{Im1+Rare100} wartość miar \textit{G-mean} oraz \textit{Recall} oscyluje koło wartości 0.4.
 
 Podobnie jak w poprzedniej sekcji przeprowadzono porównanie statystyczne klasyfikatorów z wykorzystaniem testu statystycznego rang Friedman'a oraz testu Nemenyi na poziomie istotności $\alpha$ = 0.05.
 
@@ -412,7 +415,7 @@ Split + Rare  & & 4.50 & \textbf{2.72} & 3.76 & \textbf{2.16} & \textbf{1.86} & 
     \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających wiele czynników trudności}\label{Figure:ComplexComparison}
 \end{figure}
 
-\noindent Podobnie jak to było przy analizie strumieni z dwoma czynnikami trudności tak też tutaj można zauważyć, że algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Należy też zwrócić uwagę, że drugi z zaproponowanych algorytmów \textit{NUOB} także daje sobie radę na analizowanych strumieniach. Algorytmem, który charakteryzuje się najniższą jakością klasyfikacji, jest algorytm \textit{OB}, co potwierdza teorię, że poprzez losowanie z rozkładu Possiona z parametrem $\lambda$ = 1, algorytm ten nie będzie sobie w stanie odpowiednio poradzić na złożonych strumieniach danych.
+\noindent Podobnie jak to było przy analizie strumieni z dwoma czynnikami trudności tak też tutaj można zauważyć, że algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Obserwację tę potwierdzają wyniki otrzymane podczas analizy takich scenariuszy jak: \textit{StaticIm10+Split5+Im1+Rare100}, \textit{Split5+Im1Rare80}, \textit{StaticIm10+Split5+Im1+Rare60} - wyniki oscylującą w okolicy wartości 0.8 dla miary \textit{G-mean} oraz 0.7 dla miary \textit{Recall}. Należy także zwrócić uwagę, że drugi z zaproponowanych algorytmów \textit{NUOB} także daje sobie radę na analizowanych strumieniach. Wyróżniającymi się scenariuszami, pod kątem analizy obu miar, w tym przypadku były: \textit{Split5+Im10+Rare100}, \textit{Split5+Im1+Borderline40+Rare40}, \textit{Split5+Im1+Rare60}. Algorytmem, który charakteryzuje się najniższą jakością klasyfikacji, jest algorytm \textit{OB}, co potwierdza teorię, że poprzez losowanie z rozkładu Possiona z parametrem $\lambda$ = 1, algorytm ten nie będzie sobie w stanie odpowiednio poradzić na złożonych strumieniach danych.
 
 W ramach tej sekcji przeprowadzono również porównanie statystyczne klasyfikatorów, jednak ze względu na mnogość kombinacji, zaprezentowane zostaną wyniki zbiorcze:
 
@@ -460,7 +463,7 @@ Wyniki przeprowadzonych testów pokazują, że zaproponowane w niniejszej pracy 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=13cm]{figures/split7_gmean.png}
+    \includegraphics[width=11cm]{figures/split7_gmean.png}
     \caption{Wykres liniowy miary \textit{G-mean} dla strumienia \textit{Split7}}\label{Figure:Split7}
 \end{figure}
 
@@ -547,7 +550,7 @@ Rare examples & & \textbf{2.20} & \textbf{4.00} & \textbf{3.40} & \textbf{2.50} 
     \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparisonHNOB}
 \end{figure}
 
-\noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparisonHNOB} wysunięta teza okazała się prawdziwa w przypadku scenariuszy analizowanych pod kątem miary \textit{G-mean}. Sytuacja zmienia się trochę dla niektórych przykładów strumieni pod kątem miary \textit{Recall}. Dla większości przypadków można zauważyć, że algorytm \textit{HNOB} osiąga bardzo podobne wyniki, co najlepszy z algorytmów. Istnieją jednak takie instancje jak np. \textit{Im10+Rare80} lub \textit{Im10+Rare100}, gdzie klasyfikator \textit{HNOB} odbiega swoim wynikiem od aktualnie najlepszego klasyfikatora. Spowodowane to jest faktem, że podejście hybrydowe dopasowuje się z wykorzystaniem miary \textit{G-mean}, wobec czego dopasowanie musiało nastąpić do algorytmu \textit{NUOB}, który charakteryzował się wyższą wartością miary \textit{G-mean} aniżeli algorytm \textit{NOOB}.
+\noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparisonHNOB} wysunięta teza okazała się prawdziwa w przypadku scenariuszy analizowanych pod kątem miary \textit{G-mean}. Algorytm hybrydowy osiąga rezultaty bardzo zbliżone do aktualnie najlepszego algorytmu. Można to zaobserwować w przypadku analizy takich scenariuszy, jak np. \textit{Im10+Rare40}, \textit{Im10+Rare60}, \textit{Split5+Rare60}. Sytuacja zmienia się trochę dla niektórych przykładów strumieni pod kątem miary \textit{Recall}. Dla większości przypadków można zauważyć, że algorytm \textit{HNOB} osiąga bardzo podobne wyniki, co najlepszy z algorytmów. Istnieją jednak takie instancje jak np. \textit{Im10+Rare80} lub \textit{Im10+Rare100}, gdzie klasyfikator \textit{HNOB} odbiega swoim wynikiem od aktualnie najlepszego klasyfikatora. Spowodowane to jest faktem, że podejście hybrydowe dopasowuje się z wykorzystaniem miary \textit{G-mean}, wobec czego dopasowanie musiało nastąpić do algorytmu \textit{NUOB}, który charakteryzował się wyższą wartością miary \textit{G-mean} aniżeli algorytm \textit{NOOB}.
 
 Analiza statystyczna algorytmów dla strumieni danych zawierających dwa czynniki trudności została przedstawiona w tabeli \ref{Tab:DoubleDriftFriedmanHNOB}.
 
@@ -646,3 +649,5 @@ W tabeli \ref{Tab:ComplexFriedmanHNOB} zestawione zostały wyniki przeprowadzony
 W przypadku sekwencji danych z dwoma lub więcej czynnikami trudności algorytm \textit{HNOB} charakteryzował się najlepszymi wynikami dla miar \textit{G-mean} oraz \textit{Recall} spośród wszystkich przedstawionych podejść. Dla sekwencji z jednym czynnikiem trudności algorytm ten także zaprezentował się dobrze - pod kątem miary \textit{G-mean} zajął pierwsze miejsce w rankingu, pod kątem miary \textit{Recall} zajął miejsce w połowie.
 
 Wyniki przeprowadzonych testów pokazują, że podejście hybrydowe łączy zalety obu wcześniej zaproponowanych podejść i dla wielu różnych scenariuszy strumieni danych radzi sobie bardzo dobrze. Algorytm ten charakteryzuje się najwyższym poziomem stabilności spośród wszystkich analizowanych podejść i może być jedną z alternatyw do rozważenia przy wyborze najlepszego algorytmu strumieniowego dla danego problemu.
+
+\newpage\null\thispagestyle{empty}\newpage

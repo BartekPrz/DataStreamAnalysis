@@ -1,4 +1,4 @@
-\chapter{Przegląd badań na temat niezbalansowanych i zmiennych strumieni danych oraz pojęcia podstawowe}
+\chapter{Przegląd badań na temat niezbalansowanych i zmiennych strumieni danych}
 
 \noindent W niniejszym rozdziale dokonano przeglądu badań oraz literatury na temat niezbalansowanych oraz zmiennych strumieni danych. Ponadto zostaną szczegółowo wytłumaczone pojęcia podstawowe konieczne do zrozumienia dalszej części pracy. Temat eksploracji strumieni danych rozwinął się znacząco w ostatnich latach. Na rynku jest widocznych coraz więcej nowych narzędzi skupiających się na przetwarzaniu strumieni danych. Do najbardziej znanych i popularnych możemy zaliczyć:
 
@@ -134,12 +134,12 @@ Skupiając się na literaturze skoncentrowanej na uczeniu z statycznych, niezbal
 
 \begin{itemize}
     \item Bezpieczny (\english{safe}) - jeśli większość jego sąsiadów należy do tej samej klasy
-    \item Graniczny (\english{borderline}) - jeśli liczba etykiet sąsiadów z obu klas jest podobna
+    \item Brzegowy (\english{borderline}) - jeśli liczba etykiet sąsiadów z obu klas jest podobna
     \item Odstający (\english{outlier}) - jeśli wszyscy jego sąsiedzi należą do przeciwnej klasy
-    \item Rzadki (\english{rare}) - jeśli liczba jego sąsiadów znajduje się pomiędzy granicami poziomu przypadku odstającego i granicznego
+    \item Rzadki (\english{rare}) - jeśli liczba jego sąsiadów znajduje się pomiędzy granicami poziomu przypadku odstającego i brzegowego
 \end{itemize}
 
-\noindent Zaletą przyjęcia takiej konwencji przykładów bezpiecznych, granicznych, odstających i rzadki jest kwestia, że w ten sposób można określić udział każdego typu przykładów z klasy mniejszościowej w procesie klasyfikacji na rzeczywistych zbiorach danych \cite{Article:TypyPrzykladow}\cite{Article:DataDistribution3}\cite{Article:DataDistribution2}.\\\\
+\noindent Zaletą przyjęcia takiej konwencji przykładów bezpiecznych, brzegowych, odstających i rzadkich jest kwestia, że w ten sposób możliwe jest określenie udziału każdego typu przykładów z klasy mniejszościowej w procesie klasyfikacji na rzeczywistych zbiorach danych \cite{Article:TypyPrzykladow}\cite{Article:DataDistribution3}\cite{Article:DataDistribution2}.\\\\
 \textbf{Zmiana pozycji grup obiektów}\\
 
 \noindent Ostatnim z czynników trudności, który zostanie zaprezentowany, jest czynnik związany ze zmianą pozycji grup przykładów w przestrzeni atrybutów w miarę upływu czasu. Warta podkreślenia jest kwestia, że czynnik ten nie ma prawa wystąpić w analizie statycznych zbiorów danych ze względu na ich stałą, niezmienną strukturę. W przypadku strumieni danych rozważa się środowisko dynamiczne, w którym może dochodzić do zmian definicji klas przewidywanych przez model w czasie. W dotychczasowych pracach związanych nad analizą skupień w strumieniach danych próbowano modelować i monitorować ewolucję (przejścia) skupisk w czasie \cite{Article:ClusterTransition}. Przejścia te możemy podzielić na zewnętrzne i wewnętrzne.
@@ -330,7 +330,7 @@ W ramach tej grupy możemy wyszczególnić pięć rodzajów algorytmów:
 
 \noindent Na podstawie rysunku \ref{Figure:HoeffdingTree} można zaobserwować przykładowy proces wyboru atrybutu podziału w drzewie Hoeffding'a. Po wykonaniu drugiego etapu (estymacji wartości funkcji oceny dla każdego atrybutu) algorytm jest w stanie wybrać dwie największe wartości funkcji oceny i sprawdzić czy różnica między nimi jest większa niż oszacowana wartość granicy Hoeffding'a. Jeśli różnica ta jest większa to tworzony jest w drzewie nowy warunek podziału, w przeciwnym razie drzewo pozostaje w niezmienionej formie. Warto też zwrócić uwagę na fakt, że granica Hoeffding'a jest prawdziwa dla dowolnego rozkładu danych, co oznacza, że badacz podczas eksploracji nie musi martwić się o to, żeby jego dane pochodziły np. z rozkładu normalnego czy dwumianowego.
 
-Pojęcie granicy Hoeffding'a było ważnym aspektem w kontekście analizy strumieni danych i przyczyniło się do powstania jednego z bardzo znanych algorytmów w analizie strumieni danych - Very Fast Decision Tree (VFDT) \cite{Article:VFDT}. Analizując ten algorytm warto także zwrócić uwagę na pracę \cite{Article:Rutkowski}, która wykazała, że w pierwotnej propozycji algorytmu źle zastosowano zastosowano granicę Hoeffding'a. W tej samej pracy autorzy pokazali także, że ograniczenie Hoeffding'a może zostać zastąpione innymi rozwiązaniami pochodzącymi z probabilistyki, np. nierównością McDiarmida (\english{McDiarmid's inequality}).
+Pojęcie granicy Hoeffding'a było ważnym aspektem w kontekście analizy strumieni danych i przyczyniło się do powstania jednego z bardzo znanych algorytmów w analizie strumieni danych - Very Fast Decision Tree (VFDT) \cite{Article:VFDT}. Analizując ten algorytm warto także zwrócić uwagę na pracę \cite{Article:Rutkowski}, która wykazała, że w pierwotnej propozycji algorytmu źle zastosowano zastosowano granicę Hoeffding'a. W tej samej pracy autorzy pokazali także, że ograniczenie Hoeffding'a może zostać zastąpione innymi rozwiązaniami pochodzącymi z probabilistyki, np. nierównością McDiarmida (\english{McDiarmid's inequality}) \cite{Article:Rutkowski}.
 
 \subsection{Techniki bazujące na wykorzystaniu okna}
 
