@@ -7,11 +7,11 @@ Ocena eksperymentalna będzie dokonywana na stworzonych przez generator (opisany
 
 W pierwszej części tego rozdziału zostanie zaprezentowana ocena algorytmów: \textit{OB}, \textit{UOB}, \textit{OOB}, \textit{NUOB}, \textit{NOOB}. Przeprowadzona ocena będzie składała się z kilku sekcji: analiza na strumieniach z jednym czynnikiem trudności (\english{single factors}), analiza na strumieniach z dwoma czynnikami trudności (\english{pairs of factors}) oraz analiza na złożonych strumieniach zawierających wiele czynników trudności (\english{complex scenarios}). W identyczny sposób będzie przebiegała druga częśc tego rozdziału, gdzie zostanie zaprezentowana ocena algorytmów: \textit{UOB}, \textit{OOB}, \textit{NUOB}, \textit{NOOB}, \textit{HNOB}.
 
-Ocena klasyfikatorów będzie przebiegała na podstawie wykorzystania dwóch miar: czułości (\english{recall}) oraz \textit{G-mean}. Miara czułości w tym przypadku odpowiedzialna jest za sprawdzanie jakości klasyfikacji przykładów z klasy mniejszościowej. Miara \textit{G-mean} z kolei pozwala na sprawdzanie jakości klasyfikacji przykładów z obu badanych klas. Poprzez równoczesną analizę obu tych miar jest możliwe zaobserwowanie sytuacji, w których jakość klasyfikacji przykładów jednej z klas zaczyna spadać. Przykładowo jeżeli wartość miary \textit{Recall} zacznie wzrastać i w tym samym czasie wartość miary \textit{G-mean} zacznie maleć to oznacza, że jakość klasyfikacji przykładów z klasy mniejszościowej wzrasta, ale kosztem poprawnego rozpoznawania przykładów z klasy większościowej. Dodatkowym atutem miary \textit{G-mean} jest fakt, że interpretacja tej miary pozostaje taka sama dla wszystkich możliwych wartości współczynników niezbalansowania klas (\english{imbalance ratios}), co jest szczególnie istotne przy badaniu zmiennych współczynników niezbalansowania \cite{Article:TypyPrzykladow}.
+Ocena klasyfikatorów będzie przebiegała na podstawie wykorzystania dwóch miar: czułości (\english{recall}) oraz \textit{G-mean}. Miara czułości w tym przypadku odpowiedzialna jest za sprawdzanie trafności klasyfikacji przykładów z klasy mniejszościowej. Miara \textit{G-mean} z kolei pozwala na sprawdzanie trafności klasyfikacji przykładów z obu badanych klas. Poprzez równoczesną analizę obu tych miar, możliwe jest zaobserwowanie sytuacji, w których trafność klasyfikacji przykładów jednej z klas zaczyna spadać. Przykładowo jeżeli wartość miary \textit{Recall} zacznie wzrastać i w tym samym czasie wartość miary \textit{G-mean} zacznie maleć, to oznacza, że trafność klasyfikacji przykładów z klasy mniejszościowej wzrasta, ale kosztem poprawnego rozpoznawania przykładów z klasy większościowej. Dodatkowym atutem miary \textit{G-mean} jest fakt, że interpretacja tej miary pozostaje taka sama dla wszystkich możliwych wartości współczynników niezbalansowania klas (\english{imbalance ratios}), co jest szczególnie istotne przy badaniu zmiennych współczynników niezbalansowania \cite{Article:TypyPrzykladow}.
 
 Zarówno miara \textit{Recall} jak i \textit{G-mean} zostały obliczone przy wykorzystaniu okna przesuwnego zawierającego liczbę 1000 ostatnich przykładów \cite{Article:Evaluation}. Każdy przeanalizowany strumień danych został zwizualizowany przy wykorzystaniu wykresu liniowego z liczbą przetworzonych przykładów na osi X, wartością miary \textit{Recall}/\textit{G-mean} na osi Y oraz zaznaczonym, poprzez szare tło, regionem dryfu pojęć. Przedstawiane wykresy liniowe zostały wygładzone przy wykorzystaniu mechanizmu średniej ruchomej składającej się z 20 punktów \cite{Article:TypyPrzykladow}.
 
-Dodatkowo odnotowane wartości miar zostały uśrednione dla badanych strumieni danych, co stanowiło podstawę do przeprowadzenia testu statystycznego rang Friedman'a \cite{Article:Friedman}, którego celem było porównanie jakości klasyfikacji badanych klasyfikatorów \cite{Article:TypyPrzykladow}. Ze względu na zbyt dużą liczbę przeprowadzonych eksperymentów, w rozdziale tym zawarte zostały tylko najbardziej reprezentatywne wykresy. Pozostałe wyniki, które nie zostały przedstawione w niniejszej rozprawie, są dostępne do wglądu w repozytorium, dostępnym jako załącznik \ref{Chapter:Repository} do rozprawy.
+Dodatkowo odnotowane wartości miar zostały uśrednione dla badanych strumieni danych, co stanowiło podstawę do przeprowadzenia testu statystycznego rang Friedman'a \cite{Article:Friedman}, którego celem było porównanie trafności klasyfikacji badanych klasyfikatorów \cite{Article:TypyPrzykladow}. Ze względu na zbyt dużą liczbę przeprowadzonych eksperymentów, w rozdziale tym zawarte zostały tylko najbardziej reprezentatywne wykresy. Pozostałe wyniki, które nie zostały przedstawione w niniejszej rozprawie, są dostępne do wglądu w repozytorium, dostępnym jako załącznik \ref{Chapter:Repository} do rozprawy.
 
 Organizacja oraz struktura prezentacji wyników oceny eksperymentalnej jest inspirowana pracą \cite{Article:TypyPrzykladow}. Zaprezentowane w tym rozdziale algorytmy zostały zaimplementowane w języku \textit{Java} przy pomocy biblioteki \textit{Massive Online Analysis (MOA)} \cite{Article:MOA}. W przypadku algorytmów \textit{OOB} oraz \textit{UOB} skorzystano z implementacji autorstwa Leandro L. Minku dostępnej na platformie \textit{GitHub}\footnote{\url{https://github.com/minkull/UOB-OOB-MultiClass}}. Wszelakie skrypty, konieczne do wygenerowania wykresów wykorzystanych w niniejszej rozprawie, pochodzą z ogólnodostępnego repozytorium \textit{GitHub}\footnote{\url{https://github.com/dabrze/imbalanced-stream-generator}} Dariusza Brzezińskiego.
 
@@ -39,9 +39,9 @@ Organizacja oraz struktura prezentacji wyników oceny eksperymentalnej jest insp
     \item dodatkowy współczynnik do obliczania poziomu bezpieczeństwa ($\Psi$) - 2.0
 \end{itemize}
 
-\noindent W przypadku wyboru wartości parametrów dla liczby najbliższych sąsiadów zdecydowano się posłużyć eksperymentami wykonanymi przez autorów pracy \cite{Article:NNBag}. W ramach swojej pracy przetestowali różne wartości parametrów dla $k$ = 5, 7, 9 i 11. Końcowym wynikiem oceny eksperymentalnej był wniosek dotyczący tego, że dobre rezultaty jakości klasyfikacji można osiągnąć dla małych wartości parametru $k$ zarówno dla \textit{undersampling'u} jak i \textit{oversampling'u}. Dla parametrów dotyczących wielkości okna przesuwnego oraz dodatkowego współczynnika do obliczania poziomu bezpieczeństwa zdecydowano się przeprowadzić dodatkowe testy na wybranych strumieniach danych.
+\noindent W przypadku wyboru wartości parametrów dla liczby najbliższych sąsiadów zdecydowano się posłużyć eksperymentami wykonanymi przez autorów pracy \cite{Article:NNBag}. W ramach swojej pracy przetestowali różne wartości parametrów dla $k$ = 5, 7, 9 i 11. Końcowym wynikiem oceny eksperymentalnej był wniosek dotyczący tego, że dobre rezultaty trafności klasyfikacji można osiągnąć dla małych wartości parametru $k$ zarówno dla \textit{undersampling'u} jak i \textit{oversampling'u}. Dla parametrów dotyczących wielkości okna przesuwnego oraz dodatkowego współczynnika do obliczania poziomu bezpieczeństwa zdecydowano się przeprowadzić dodatkowe testy na wybranych strumieniach danych.
 
-Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $500$ oraz $1000$. W ramach wykonanego eksperymentu przetestowano wiele scenariuszy, jednak ze względu na długość pracy, zostaną zaprezentowane jedynie trzy przykładowe scenariusze w celach wizualizacji. Wyniki dotyczące jakości klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:WindowParametrization1} i \ref{Figure:WindowParametrization2}.
+Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $500$ oraz $1000$. W ramach wykonanego eksperymentu przetestowano wiele scenariuszy, jednak ze względu na długość pracy, zostaną zaprezentowane jedynie trzy przykładowe scenariusze w celach wizualizacji. Wyniki dotyczące trafności klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:WindowParametrization1} i \ref{Figure:WindowParametrization2}.
 
 \begin{figure}[h]
     \centering
@@ -60,9 +60,9 @@ Dla parametru dotyczącego wielkości okna przesuwnego przetestowano wartości $
 \end{figure}
 
 
-\noindent Jak można zaobserwować na zaprezentowanych rysunkach różnice w jakości klasyfikacji dla zaproponowanych algorytmów są niewielkie między wartością 500 a 1000 dla parametru wielkości okna przesuwnego. Z tego powodu dalsze eksperymenty zdecydowano się przeprowadzić dla wartości parametru równej 500.
+\noindent Jak można zaobserwować na zaprezentowanych rysunkach różnice w trafności klasyfikacji dla zaproponowanych algorytmów są niewielkie między wartością 500 a 1000 dla parametru wielkości okna przesuwnego. Z tego powodu dalsze eksperymenty zdecydowano się przeprowadzić dla wartości parametru równej 500.
 
-Podobna analiza została przeprowadzona dla parametru dotyczącego współczynnika wymagane do obliczania poziomu bezpieczeństwa. W ramach analizy przetestowano wartości $1.5$ oraz $2$. Wyniki dotyczące jakości klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:PsiParametrization1} i \ref{Figure:PsiParametrization2}.
+Podobna analiza została przeprowadzona dla parametru dotyczącego współczynnika wymagane do obliczania poziomu bezpieczeństwa. W ramach analizy przetestowano wartości $1.5$ oraz $2$. Wyniki dotyczące trafności klasyfikacji na wybranych strumieniach danych można zobaczyć na rysunku \ref{Figure:PsiParametrization1} i \ref{Figure:PsiParametrization2}.
 
 \begin{figure}[h]
     \centering
@@ -86,17 +86,17 @@ Podobna analiza została przeprowadzona dla parametru dotyczącego współczynni
 
 \subsection{Data streams with single factors}
 
-\noindent W pierwszej kolejności zaprezentowane algorytmy zostaną przetestowane pod kątem jakości klasyfikacji na strumieniach danych z jednym czynnikiem trudności (\english{single factor}).\\\\
+\noindent W pierwszej kolejności zaprezentowane algorytmy zostaną przetestowane pod kątem trafności klasyfikacji na strumieniach danych z jednym czynnikiem trudności (\english{single factor}).\\\\
 \textbf{Stały współczynnik niezbalansowania}\\
 
-\noindent Pierwszym z badanych czynników będzie stały współczynnik niezbalansowania (\textit{StaticIm}). Praktycznie wszystkie algorytmy radziły sobie bardzo dobrze z klasyfikacją danych pochodzących ze strumieni o stałym współczynniku niezbalansowania. Dla strumieni danych o współczynniku niezbalansowania równym: 50\%, 40\%, 30\%, 20\%, 10\% wszystkie algorytmy charakteryzowały się średnią wartością miar \textit{G-mean} oraz \textit{Recall} na poziomie 0.99. Sytuacja trochę zmieniała się dla wartości współczynnika $\leq$ 5\%, gdzie można zauważyć lekki spadek jakości klasyfikacji dla algorytmów \textit{OB}, \textit{OOB} oraz \textit{NOOB}. Wraz ze spadkiem współczynnika niezbalansowania spadała jakość klasyfikacji dla wspomnianych algorytmów - dla współczynnika równego 1\% średnia wartość miary \textit{G-mean} dla algorytmu \textit{OB} wyniosła 0.81, dla algorytmu \textit{NOOB} 0.92, dla algorytmu \textit{OOB} 0.94. Jakość klasyfikacji pozostała niezmienna dla algorytmów \textit{UOB} oraz \textit{NUOB} dla różnych wartości współczynnika niezbalansowania. Szczegółowe wyniki jakości klasyfikacji zostały przedstawione na rysunku \ref{Figure:StaticImbalance} oraz w tabeli \ref{Tab:ImbalanceRatio}. Wartości miar oznaczonych na wykresie oraz zawartych w tabeli zostały wyznaczone jako średnia wszystkich wartości obliczonych podczas ewaluacji odpowiedniego strumienia.\\\\
+\noindent Pierwszym z badanych czynników będzie stały współczynnik niezbalansowania (\textit{StaticIm}). Praktycznie wszystkie algorytmy radziły sobie bardzo dobrze z klasyfikacją danych pochodzących ze strumieni o stałym współczynniku niezbalansowania. Dla strumieni danych o współczynniku niezbalansowania równym: 50\%, 40\%, 30\%, 20\%, 10\% wszystkie algorytmy charakteryzowały się średnią wartością miar \textit{G-mean} oraz \textit{Recall} na poziomie 0.99. Sytuacja trochę zmieniała się dla wartości współczynnika $\leq$ 5\%, gdzie można zauważyć lekki spadek trafności klasyfikacji dla algorytmów \textit{OB}, \textit{OOB} oraz \textit{NOOB}. Wraz ze spadkiem współczynnika niezbalansowania spadała trafność klasyfikacji dla wspomnianych algorytmów - dla współczynnika równego 1\% średnia wartość miary \textit{G-mean} dla algorytmu \textit{OB} wyniosła 0.81, dla algorytmu \textit{NOOB} 0.92, dla algorytmu \textit{OOB} 0.94. Trafność klasyfikacji pozostała niezmienna dla algorytmów \textit{UOB} oraz \textit{NUOB} dla różnych wartości współczynnika niezbalansowania. Szczegółowe wyniki trafności klasyfikacji zostały przedstawione na rysunku \ref{Figure:StaticImbalance} oraz w tabeli \ref{Tab:ImbalanceRatio}. Wartości miar oznaczonych na wykresie oraz zawartych w tabeli zostały wyznaczone jako średnia wszystkich wartości obliczonych podczas ewaluacji odpowiedniego strumienia.\\\\
 
 \begin{figure}[h]
     \centering
     \subfloat{\includegraphics[width=7cm]{figures/imbalance_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm]{figures/imbalance_plot_Recall.png}}
-    \caption{Porównanie jakości klasyfikacji dla różnych wartości współczynników niezbalansowania}\label{Figure:StaticImbalance}
+    \caption{Porównanie trafności klasyfikacji dla różnych wartości współczynników niezbalansowania}\label{Figure:StaticImbalance}
 \end{figure}
 
 \newpage
@@ -116,16 +116,16 @@ Imbalance Ratio & OB & UOB & OOB & NUOB & NOOB \\
 20\% & 0.988 & 0.992 & 0.992 & 0.988 & 0.992 \\
 \bottomrule
 \end{tabular}
-\caption{Porównanie jakości klasyfikacji miary \textit{G-mean} w zależności od wartości współczynnika niezbalansowania}\label{Tab:ImbalanceRatio}
+\caption{Porównanie trafności klasyfikacji miary \textit{G-mean} w zależności od wartości współczynnika niezbalansowania}\label{Tab:ImbalanceRatio}
 \end{table}
 
 \noindent \textbf{Dryf pojęć ze zmianą współczynnika niezbalansowania}\\
 
-\noindent Drugim z analizowanych czynników trudności będzie dryf pojęć ze zmianą współczynnika niezbalansowania (\textit{Im}). W przypadku wystąpienia dryfu związanego ze zmniejszeniem wartości współczynnika niezbalansowania można zaobserwować podobną sytuację, co przy analizie strumieni ze stałą wartością. Wszystkie klasyfikatory radzą sobie bardzo dobrze ze zmianami, jeśli przed wystąpieniem zjawiska dryfu współczynnik niezbalansowania wynosił przynajmniej 20\%. Sytuacja ta zaczyna się zmieniać, gdy przykładów do nauki było mniej przed wystąpieniem dryfu. Można zauważyć, że dla tych przypadków najgorzej radził sobie algorytm \textit{OB}. Pozostałe algorytmy także zaliczyły lekki spadek jakości klasyfikacji, jednak nadal utrzymywał się on koło wartości 0.98 dla miary \textit{G-mean} dla najlepszych algorytmów \textit{UOB} oraz \textit{NUOB}.
+\noindent Drugim z analizowanych czynników trudności będzie dryf pojęć ze zmianą współczynnika niezbalansowania (\textit{Im}). W przypadku wystąpienia dryfu związanego ze zmniejszeniem wartości współczynnika niezbalansowania można zaobserwować podobną sytuację, co przy analizie strumieni ze stałą wartością. Wszystkie klasyfikatory radzą sobie bardzo dobrze ze zmianami, jeśli przed wystąpieniem zjawiska dryfu współczynnik niezbalansowania wynosił przynajmniej 20\%. Sytuacja ta zaczyna się zmieniać, gdy przykładów do nauki było mniej przed wystąpieniem dryfu. Można zauważyć, że dla tych przypadków najgorzej radził sobie algorytm \textit{OB}. Pozostałe algorytmy także zaliczyły lekki spadek trafności klasyfikacji, jednak nadal utrzymywał się on koło wartości 0.98 dla miary \textit{G-mean} dla najlepszych algorytmów \textit{UOB} oraz \textit{NUOB}.
 
-Sytuacja zmienia się w przypadku zaobserwowania dryfu związane ze zwiększeniem się wartości współczynnika niezbalansowania. Największy spadek jakości klasyfikacji dla algorytmów można zaobserwować dla przypadku, gdzie przed wystąpieniem dryfu pojęć liczba przykładów z klasy mniejszościowej stanowi zaledwie 1\% wszystkich przykładów. Najgorzej spisującym się algorytmem w tym przypadku był \textit{OB}, lekki spadek widoczny jest także dla algorytmów \textit{NOOB} oraz \textit{OOB}.
+Sytuacja zmienia się w przypadku zaobserwowania dryfu związane ze zwiększeniem się wartości współczynnika niezbalansowania. Największy spadek trafności klasyfikacji dla algorytmów można zaobserwować dla przypadku, gdzie przed wystąpieniem dryfu pojęć liczba przykładów z klasy mniejszościowej stanowi zaledwie 1\% wszystkich przykładów. Najgorzej spisującym się algorytmem w tym przypadku był \textit{OB}, lekki spadek widoczny jest także dla algorytmów \textit{NOOB} oraz \textit{OOB}.
 
-Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie bardzo dobrze ze zjawiskiem zmiany współczynnika niezbalansowania. Dla najbardziej wymagających scenariuszy, gdzie przykładów z klasy mniejszościowej przed dryfem jest bardzo mało, można zaobserwować lekkie spadki jakości klasyfikacji dla średniej wartości miary \textit{G-mean}, jednak spadki te nie są bardzo duże. Zbiorowe wyniki klasyfikacji zostały przedstawione na rysunku \ref{Figure:DriftImbalance}. Jak można zauważyć na ilustracji \ref{Figure:StaticIm1_Im60} przedstawiającej scenariusz \textit{StaticIm1+Im60}, głównym problemem w procesie uczenia jest mała ilość przykładów z klasy mniejszościowej. Po wystąpieniu dryfu można zaobserwować, że jakość klasyfikacji wzrasta i utrzymuje się na poziomie wartości 0.99 dla obu badanych miar. W przypadku scenariuszy charakteryzujących się spadkiem współczynnika niezbalansowania (zaprezentowanych na ilustracji \ref{Figure:StaticIm10_Im1}), tak jak się można  spodziewać, widoczne jest obniżenie jakości klasyfikacji dla algorytmów po wystąpieniu dryfu. Mimo chwilowego spadku wszystkie algorytmy reagują odpowiednio na zmiany i ostatecznie wracają do poziomu, który występował przed dryfem.
+Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie bardzo dobrze ze zjawiskiem zmiany współczynnika niezbalansowania. Dla najbardziej wymagających scenariuszy, gdzie przykładów z klasy mniejszościowej przed dryfem jest bardzo mało, można zaobserwować lekkie spadki trafności klasyfikacji dla średniej wartości miary \textit{G-mean}, jednak spadki te nie są bardzo duże. Zbiorowe wyniki klasyfikacji zostały przedstawione na rysunku \ref{Figure:DriftImbalance}. Jak można zauważyć na ilustracji \ref{Figure:StaticIm1_Im60} przedstawiającej scenariusz \textit{StaticIm1+Im60}, głównym problemem w procesie uczenia jest mała ilość przykładów z klasy mniejszościowej. Po wystąpieniu dryfu można zaobserwować, że trafność klasyfikacji wzrasta i utrzymuje się na poziomie wartości 0.99 dla obu badanych miar. W przypadku scenariuszy charakteryzujących się spadkiem współczynnika niezbalansowania (zaprezentowanych na ilustracji \ref{Figure:StaticIm10_Im1}), tak jak się można  spodziewać, widoczne jest obniżenie trafności klasyfikacji dla algorytmów po wystąpieniu dryfu. Mimo chwilowego spadku wszystkie algorytmy reagują odpowiednio na zmiany i ostatecznie wracają do poziomu, który występował przed dryfem.
 
 \begin{figure}[h]
     \centering
@@ -139,7 +139,7 @@ Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie 
     \subfloat{\includegraphics[width=7cm]{figures/dynamic_decreasing_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm]{figures/dynamic_increasing_plot_G-mean.png}}
-    \caption{Porównanie jakości klasyfikacji przy zmianie współczynnika niezbalansowania podczas zjawiska dryfu}\label{Figure:DriftImbalance}
+    \caption{Porównanie trafności klasyfikacji przy zmianie współczynnika niezbalansowania podczas zjawiska dryfu}\label{Figure:DriftImbalance}
 \end{figure}
 
 \begin{figure}[h]
@@ -180,7 +180,7 @@ Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie 
     \caption{Wykresy liniowe miar \textit{G-mean} oraz \textit{Recall} dla strumienia \textit{Split5}}\label{Figure:Split5}
 \end{figure}
 
-\noindent W przypadku scenariusza związanego z podziałem skupiska można zauważyć spadek w jakości klasyfikacji w trakcie występowania dryfu pojęć. Jak można zauważyć większość klasyfikatorów zachowała się bardzo podobnie. Po zaobserwowanym spadku widoczny jest wzrost, który świadczy o tym, że algorytmy przystosowały się odpowiednio do zmian, które zaszły w badanym strumieniu. Identyczny efekt można zaobserwować dla scenariusza, gdy grupy przykładów przemieszczają się w przestrzeni atrybutów. W trakcie przemieszczania widoczny jest spadek wartości badanych miar, natomiast po przemieszczeniu klasyfikatory odpowiednio przystosowują się do zmian, co skutkuje wzrostem jakości klasyfikacji. Podobną sytuację można zaobserwować w przypadku połączenia grup przykładów w większe skupisko, co zostało przedstawione na rysunku \ref{Figure:Join5}.
+\noindent W przypadku scenariusza związanego z podziałem skupiska można zauważyć spadek w trafności klasyfikacji w trakcie występowania dryfu pojęć. Jak można zauważyć większość klasyfikatorów zachowała się bardzo podobnie. Po zaobserwowanym spadku widoczny jest wzrost, który świadczy o tym, że algorytmy przystosowały się odpowiednio do zmian, które zaszły w badanym strumieniu. Identyczny efekt można zaobserwować dla scenariusza, gdy grupy przykładów przemieszczają się w przestrzeni atrybutów. W trakcie przemieszczania widoczny jest spadek wartości badanych miar, natomiast po przemieszczeniu klasyfikatory odpowiednio przystosowują się do zmian, co skutkuje wzrostem trafności klasyfikacji. Podobną sytuację można zaobserwować w przypadku połączenia grup przykładów w większe skupisko, co zostało przedstawione na rysunku \ref{Figure:Join5}.
 
 \begin{figure}[h]
     \centering
@@ -204,10 +204,10 @@ Podsumowując, zaprezentowane algorytmy w większości przypadków radzą sobie 
     \subfloat{\includegraphics[width=4cm]{figures/Move_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=4cm]{figures/join_plot_G-mean.png}}
-    \caption{Porównanie jakości klasyfikacji przy zmianie liczby skupisk przykładów klasy mniejszościowej}\label{Figure:ChangeComposition}
+    \caption{Porównanie trafności klasyfikacji przy zmianie liczby skupisk przykładów klasy mniejszościowej}\label{Figure:ChangeComposition}
 \end{figure}
 
-\noindent Podsumowując, wszystkie przedstawione algorytmy radziły sobie identycznie z problemem zmiany rozkładu klasy mniejszościowej. Jak można zauważyć na rysunku \ref{Figure:ChangeComposition} większa lub mniejsza liczba skupisk nie wpływała znacząco na jakość klasyfikacji zaprezentowanych modeli. Każdy z klasyfikatorów po wystąpieniu dryfu pojęć był w stanie przystosować się do zmian, które zaszły w strumieniu i powrócić na wysoki poziom jakości klasyfikacji.
+\noindent Podsumowując, wszystkie przedstawione algorytmy radziły sobie identycznie z problemem zmiany rozkładu klasy mniejszościowej. Jak można zauważyć na rysunku \ref{Figure:ChangeComposition} większa lub mniejsza liczba skupisk nie wpływała znacząco na trafność klasyfikacji zaprezentowanych modeli. Każdy z klasyfikatorów po wystąpieniu dryfu pojęć był w stanie przystosować się do zmian, które zaszły w strumieniu i powrócić na wysoki poziom trafności klasyfikacji.
 
 \newpage
 
@@ -235,10 +235,10 @@ Rare[N] & 20\% & 0.935 & 0.935 & 0.935 & 0.935 & 0.934 \\
 & 100\% & 0.677 & 0.668 & 0.689 & 0.661 & 0.692 \\
 \bottomrule
 \end{tabular}
-\caption{Porównanie jakości klasyfikacji miary \textit{G-mean} w zależności od napływu przykładów określonego typu. Wartości w tabeli zostały wyznaczone jako średnia wszystkich wyników obliczonych podczas oceny odpowiedniego strumienia}\label{Tab:BorderlineRare}
+\caption{Porównanie trafności klasyfikacji miary \textit{G-mean} w zależności od napływu przykładów określonego typu. Wartości w tabeli zostały wyznaczone jako średnia wszystkich wyników obliczonych podczas oceny odpowiedniego strumienia}\label{Tab:BorderlineRare}
 \end{table}
 
-\noindent Na podstawie przedstawionej tabeli \ref{Tab:BorderlineRare} można zauważyć, że porównywane klasyfikatory bardzo dobrze radzą sobie z napływem przykładów typu \textit{borderline}. Niestety widoczny jest znaczący spadek klasyfikacji w przypadku napływu przykładów typu \textit{Rare}. Identyczny efekt można zaobserwować przy zestawieniu wyników miary \textit{Recall}. Z zaprezentowanych rezultatów można wyciągnąć wniosek, że algorytm \textit{NOOB} radzi sobie trochę lepiej z rozpoznawaniem przykładów rzadkich aniżeli pozostałe algorytmy. Potwierdzenie tej obserwacji można zobaczyć na rysunku \ref{Figure:Rare80}.
+\noindent Na podstawie przedstawionej tabeli \ref{Tab:BorderlineRare} można zauważyć, że porównywane klasyfikatory bardzo dobrze radzą sobie z napływem przykładów typu \textit{borderline}. Niestety, widoczny jest znaczący spadek klasyfikacji w przypadku napływu przykładów typu \textit{Rare}. Identyczny efekt można zaobserwować przy zestawieniu wyników miary \textit{Recall}. Z zaprezentowanych rezultatów można wyciągnąć wniosek, że algorytm \textit{NOOB} radzi sobie trochę lepiej z rozpoznawaniem przykładów rzadkich aniżeli pozostałe algorytmy. Potwierdzenie tej obserwacji można zobaczyć na rysunku \ref{Figure:Rare80}.
 
 \newpage
 
@@ -260,10 +260,10 @@ Rare[N] & 20\% & 0.935 & 0.935 & 0.935 & 0.935 & 0.934 \\
     \subfloat{\includegraphics[width=7cm]{figures/borderline_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm]{figures/rare_plot_G-mean.png}}
-    \caption{Porównanie jakości klasyfikacji przy zmianie liczby przykładów określonego typu}\label{Figure:BorderlineRare}
+    \caption{Porównanie trafności klasyfikacji przy zmianie liczby przykładów określonego typu}\label{Figure:BorderlineRare}
 \end{figure}
 
-\noindent Podsumowując, wszystkie przedstawione algorytmy radzą sobie bardzo dobrze ze wzrostem przykładów typu \textit{Borderline}. Niestety w przypadku wzrostu elementów typu \textit{Rare} widoczny jest znaczący spadek jakości klasyfikacji. Jedynym wyróżniającym się algorytmem, który radził sobie lepiej od pozostałych z rozpoznawaniem przykładów rzadkich, był algorytm \textit{NOOB}, jednak nawet ten klasyfikator nie dał rady odpowiednio dostosować się do zmian i powrócić na swój początkowy poziom jakości klasyfikacji przed wystąpieniem dryfu.
+\noindent Podsumowując, wszystkie przedstawione algorytmy radzą sobie bardzo dobrze ze wzrostem przykładów typu \textit{Borderline}. Niestety w przypadku wzrostu elementów typu \textit{Rare} widoczny jest znaczący spadek trafności klasyfikacji. Jedynym wyróżniającym się algorytmem, który radził sobie lepiej od pozostałych z rozpoznawaniem przykładów rzadkich, był algorytm \textit{NOOB}, jednak nawet ten klasyfikator nie dał rady odpowiednio dostosować się do zmian i powrócić na swój początkowy poziom trafności klasyfikacji przed wystąpieniem dryfu.
 
 \noindent \textbf{Porównanie statystyczne klasyfikatorów}\\
 
@@ -307,7 +307,7 @@ Rare examples & & \textbf{3.90} & \textbf{3.80} & \textbf{2.80} & \textbf{2.10} 
 
 \subsection{Data streams with pairs of factors}
 
-\noindent W niniejszej sekcji zaprezentowane algorytmy zostaną przetestowane pod kątem jakości klasyfikacji na strumieniach danych z dwoma czynnikami trudności (\english{pairs of factors}). Jak się okazało, na podstawie wyników poprzedniej sekcji, najbardziej wymagającym czynnikiem, z którym algorytmy miały największe problemy, był napływ przykładów typu \textit{Rare}. Bardzo podobnie sytuacja wygląda w przypadku analizy par czynników, które mogą wystąpić w strumieniu. Jeżeli jednym z tych czynników jest napływ rzadkich przykładów to jakość klasyfikacji jest zdecydowanie niższa aniżeli gdy dokonujemy analizy strumienia zawierającego inne własności. Odwzorowanie tej sytuacji można zobaczyć na rysunkach \ref{Figure:Split5Pairs} oraz \ref{Figure:PairsFactors}.
+\noindent W niniejszej sekcji zaprezentowane algorytmy zostaną przetestowane pod kątem trafności klasyfikacji na strumieniach danych z dwoma czynnikami trudności (\english{pairs of factors}). Jak się okazało, na podstawie wyników poprzedniej sekcji, najbardziej wymagającym czynnikiem, z którym algorytmy miały największe problemy, był napływ przykładów typu \textit{Rare}. Bardzo podobnie sytuacja wygląda w przypadku analizy par czynników, które mogą wystąpić w strumieniu. Jeżeli jednym z tych czynników jest napływ rzadkich przykładów to trafność klasyfikacji jest zdecydowanie niższa aniżeli gdy dokonujemy analizy strumienia zawierającego inne własności. Odwzorowanie tej sytuacji można zobaczyć na rysunkach \ref{Figure:Split5Pairs} oraz \ref{Figure:PairsFactors}.
 
 \begin{figure}[h]
     \centering
@@ -339,7 +339,7 @@ Rare examples & & \textbf{3.90} & \textbf{3.80} & \textbf{2.80} & \textbf{2.10} 
     \subfloat{\includegraphics[width=7cm]{figures/pair_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm]{figures/pair_plot_Recall.png}}
-    \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparison}
+    \caption{Porównanie trafności klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparison}
 \end{figure}
 
 \noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparison} algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Przykładowo dla strumienia \textit{Im1+Rare80} wartość miary \textit{G-mean} dla algorytmu \textit{NOOB} wynosi około 0.8, podczas gdy dla pozostałych algorytmów jest to wartość około 0.65. Podobne rezultaty można zaobserwować dla tego samego strumienia dla miary \textit{Recall}. Dla podejścia \textit{NOOB} jest to wartość około 0.75, a dla pozostałych algorytmów około 0.5. Analogiczną sytuację można zaobserwować na strumieniu \textit{Im10+Rare60} lub \textit{Im10+Rare40}. Należy także zwrócić uwagę na obserwację dotyczącą tego, że algorytmy \textit{OB} oraz \textit{OOB} kompletnie nie radzą sobie z klasyfikacją trudnych strumieni danych - na strumieniu \textit{Im1+Rare100} wartość miar \textit{G-mean} oraz \textit{Recall} oscyluje koło wartości 0.4.
@@ -386,7 +386,7 @@ Split + Rare  & & 4.50 & \textbf{2.72} & 3.76 & \textbf{2.16} & \textbf{1.86} & 
 
 \subsection{Complex scenarios}
 
-\noindent W ramach tej części zaprezentowane algorytmy zostaną przetestowane pod kątem jakości klasyfikacji na strumieniach danych z wieloma czynnikami trudności (\english{complex scenarios}). Podobnie jak to było przy ocenie strumieni z dwoma czynnikami trudności, tak tutaj największy wpływ na jakość klasyfikacji ma napływ elementów rzadkich. Z takimi scenariuszami radzi sobie najlepiej algorytm \textit{NOOB}, czego odzwierciedlenie można zobaczyć na rysunku \ref{Figure:ComlexScenario}.
+\noindent W ramach tej części zaprezentowane algorytmy zostaną przetestowane pod kątem trafności klasyfikacji na strumieniach danych z wieloma czynnikami trudności (\english{complex scenarios}). Podobnie jak to było przy ocenie strumieni z dwoma czynnikami trudności, tak tutaj największy wpływ na trafność klasyfikacji ma napływ elementów rzadkich. Z takimi scenariuszami radzi sobie najlepiej algorytm \textit{NOOB}, czego odzwierciedlenie można zobaczyć na rysunku \ref{Figure:ComlexScenario}.
 
 \newpage
 
@@ -398,7 +398,7 @@ Split + Rare  & & 4.50 & \textbf{2.72} & 3.76 & \textbf{2.16} & \textbf{1.86} & 
     \caption{Wykresy liniowe miar \textit{G-mean} oraz \textit{Recall} dla strumienia \textit{StaticIm10+Split5+Im1+Rare80}}\label{Figure:ComlexScenario}
 \end{figure}
 
-\noindent W celach porównawczych dokonano zestawienia wyników algorytmów na strumieniach danych, które najbardziej wpływają na spadek jakości klasyfikacji. Otrzymane wyniki widoczne są na rysunku \ref{Figure:ComplexComparison}.
+\noindent W celach porównawczych dokonano zestawienia wyników algorytmów na strumieniach danych, które najbardziej wpływają na spadek trafności klasyfikacji. Otrzymane wyniki widoczne są na rysunku \ref{Figure:ComplexComparison}.
 
 \begin{figure}[h]
     \centering
@@ -412,10 +412,10 @@ Split + Rare  & & 4.50 & \textbf{2.72} & 3.76 & \textbf{2.16} & \textbf{1.86} & 
     \subfloat{\includegraphics[width=7cm,height=9cm]{figures/complex_plot_G-mean.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm,height=9cm]{figures/complex_plot_Recall.png}}
-    \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających wiele czynników trudności}\label{Figure:ComplexComparison}
+    \caption{Porównanie trafności klasyfikacji na najbardziej wymagających strumieniach danych zawierających wiele czynników trudności}\label{Figure:ComplexComparison}
 \end{figure}
 
-\noindent Podobnie jak to było przy analizie strumieni z dwoma czynnikami trudności tak też tutaj można zauważyć, że algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Obserwację tę potwierdzają wyniki otrzymane podczas analizy takich scenariuszy jak: \textit{StaticIm10+Split5+Im1+Rare100}, \textit{Split5+Im1Rare80}, \textit{StaticIm10+Split5+Im1+Rare60} - wyniki oscylującą w okolicy wartości 0.8 dla miary \textit{G-mean} oraz 0.7 dla miary \textit{Recall}. Należy także zwrócić uwagę, że drugi z zaproponowanych algorytmów \textit{NUOB} także daje sobie radę na analizowanych strumieniach. Wyróżniającymi się scenariuszami, pod kątem analizy obu miar, w tym przypadku były: \textit{Split5+Im10+Rare100}, \textit{Split5+Im1+Borderline40+Rare40}, \textit{Split5+Im1+Rare60}. Algorytmem, który charakteryzuje się najniższą jakością klasyfikacji, jest algorytm \textit{OB}, co potwierdza teorię, że poprzez losowanie z rozkładu Possiona z parametrem $\lambda$ = 1, algorytm ten nie będzie sobie w stanie odpowiednio poradzić na złożonych strumieniach danych.
+\noindent Podobnie jak to było przy analizie strumieni z dwoma czynnikami trudności tak też tutaj można zauważyć, że algorytm \textit{NOOB} radzi sobie zdecydowanie lepiej od pozostałych algorytmów na najbardziej wymagających strumieniach danych. Obserwację tę potwierdzają wyniki otrzymane podczas analizy takich scenariuszy jak: \textit{StaticIm10+Split5+Im1+Rare100}, \textit{Split5+Im1Rare80}, \textit{StaticIm10+Split5+Im1+Rare60} - wyniki oscylującą w okolicy wartości 0.8 dla miary \textit{G-mean} oraz 0.7 dla miary \textit{Recall}. Należy także zwrócić uwagę, że drugi z zaproponowanych algorytmów \textit{NUOB} także daje sobie radę na analizowanych strumieniach. Wyróżniającymi się scenariuszami, pod kątem analizy obu miar, w tym przypadku były: \textit{Split5+Im10+Rare100}, \textit{Split5+Im1+Borderline40+Rare40}, \textit{Split5+Im1+Rare60}. Algorytmem, który charakteryzuje się najniższą trafnością klasyfikacji, jest algorytm \textit{OB}, co potwierdza teorię, że poprzez losowanie z rozkładu Possiona z parametrem $\lambda$ = 1, algorytm ten nie będzie sobie w stanie odpowiednio poradzić na złożonych strumieniach danych.
 
 W ramach tej sekcji przeprowadzono również porównanie statystyczne klasyfikatorów, jednak ze względu na mnogość kombinacji, zaprezentowane zostaną wyniki zbiorcze:
 
@@ -547,7 +547,7 @@ Rare examples & & \textbf{2.20} & \textbf{4.00} & \textbf{3.40} & \textbf{2.50} 
     \subfloat{\includegraphics[width=7cm]{figures/pair_plot_G-mean_HNOB.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm]{figures/pair_plot_Recall_HNOB.png}}
-    \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparisonHNOB}
+    \caption{Porównanie trafności klasyfikacji na najbardziej wymagających strumieniach danych zawierających dwa czynniki trudności}\label{Figure:PairsComparisonHNOB}
 \end{figure}
 
 \noindent Jak można zauważyć na ilustracji \ref{Figure:PairsComparisonHNOB} wysunięta teza okazała się prawdziwa w przypadku scenariuszy analizowanych pod kątem miary \textit{G-mean}. Algorytm hybrydowy osiąga rezultaty bardzo zbliżone do aktualnie najlepszego algorytmu. Można to zaobserwować w przypadku analizy takich scenariuszy, jak np. \textit{Im10+Rare40}, \textit{Im10+Rare60}, \textit{Split5+Rare60}. Sytuacja zmienia się trochę dla niektórych przykładów strumieni pod kątem miary \textit{Recall}. Dla większości przypadków można zauważyć, że algorytm \textit{HNOB} osiąga bardzo podobne wyniki, co najlepszy z algorytmów. Istnieją jednak takie instancje jak np. \textit{Im10+Rare80} lub \textit{Im10+Rare100}, gdzie klasyfikator \textit{HNOB} odbiega swoim wynikiem od aktualnie najlepszego klasyfikatora. Spowodowane to jest faktem, że podejście hybrydowe dopasowuje się z wykorzystaniem miary \textit{G-mean}, wobec czego dopasowanie musiało nastąpić do algorytmu \textit{NUOB}, który charakteryzował się wyższą wartością miary \textit{G-mean} aniżeli algorytm \textit{NOOB}.
@@ -591,8 +591,9 @@ Split + Rare  & & \textbf{2.14} & 3.28 & 4.56 & \textbf{2.76} & \textbf{2.26} & 
 \end{itemize}
 
 \subsection{Complex scenarios}
+\label{Label:ComplexScenariosHNOB}
 
-\noindent Analiza algorytmów pod kątem strumieni danych z wieloma czynnikami trudności będzie przebiegać w podobny sposób jak dla strumieni z dwoma czynnikami trudności. W pierwszej kolejności wyniki wszystkich podejść zostaną zaprezentowane na wykresie zawierającym najbardziej wymagające strumienie danych pod kątem jakości klasyfikacji. W drugiej części zostanie przedstawione zestawienie statystyczne na sekwencjach danych zawierających co najmniej dwa czynniki trudności oraz na wszystkich sekwencjach danych.
+\noindent Analiza algorytmów pod kątem strumieni danych z wieloma czynnikami trudności będzie przebiegać w podobny sposób jak dla strumieni z dwoma czynnikami trudności. W pierwszej kolejności wyniki wszystkich podejść zostaną zaprezentowane na wykresie zawierającym najbardziej wymagające strumienie danych pod kątem trafności klasyfikacji. W drugiej części zostanie przedstawione zestawienie statystyczne na sekwencjach danych zawierających co najmniej dwa czynniki trudności oraz na wszystkich sekwencjach danych.
 
 \newpage
 
@@ -616,7 +617,7 @@ Split + Rare  & & \textbf{2.14} & 3.28 & 4.56 & \textbf{2.76} & \textbf{2.26} & 
     \subfloat{\includegraphics[width=7cm,height=9cm]{figures/complex_plot_G-mean_HNOB.png}}
     \qquad
     \subfloat{\includegraphics[width=7cm,height=9cm]{figures/complex_plot_Recall_HNOB.png}}
-    \caption{Porównanie jakości klasyfikacji na najbardziej wymagających strumieniach danych zawierających wiele czynników trudności}\label{Figure:ComplexComparisonHNOB}
+    \caption{Porównanie trafności klasyfikacji na najbardziej wymagających strumieniach danych zawierających wiele czynników trudności}\label{Figure:ComplexComparisonHNOB}
 \end{figure}
 
 \newpage
