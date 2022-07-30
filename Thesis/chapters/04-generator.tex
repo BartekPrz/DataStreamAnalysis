@@ -1,7 +1,7 @@
 \chapter{Generator strumieni danych}
 \label{Chapter:Generator}
 
-\noindent Bardzo ważnym elementem w kontekście realizacji założonego celu pracy było przygotowanie odpowiednich danych strumieniowych do nauki algorytmów. Z racji, że temat pracy odnosi się do niezbalansowanych i zmiennych strumieni danych, to wygenerowane instancje przykładów musiały spełniać określone warunki. Szczególnym aspektem, na który nałożono nacisk w niniejszej rozprawie jest trafność klasyfikacji danych strumieniowych w zależności od typu zmiany w strumieniu. Wobec tego faktu pewnym wyzwaniem było znalezienie odpowiednich zbiorów danych, które spełniałyby wymagane kryteria, tzn. charakteryzowałyby się niezbalansowaniem danych oraz skupiały się na konkretnym typie zmiany. Wiele dostępnych zbiorów danych w sieci spełnia pierwsze wymienione wymaganie odnośnie niezbalansowania, jednak wymaganie odnośnie wystąpienia w strumieniu konkretnego typu zmiany było niemożliwe do spełnienia.
+\noindent Bardzo ważnym elementem w kontekście realizacji założonego celu pracy było przygotowanie odpowiednich danych strumieniowych do nauki algorytmów. Z racji, że temat pracy odnosi się do niezbalansowanych i zmiennych strumieni danych, to wygenerowane instancje przykładów musiały spełniać określone warunki. Szczególnym aspektem, na który nałożono nacisk w niniejszej rozprawie jest trafność klasyfikacji danych strumieniowych w zależności od typu zmiany w strumieniu. Wobec tego faktu pewnym wyzwaniem było znalezienie odpowiednich zbiorów danych, które spełniałyby wymagane kryteria, tzn. charakteryzowałyby się niezbalansowaniem danych oraz skupiały się na konkretnym typie zmiany. Wiele dostępnych zbiorów danych w sieci spełnia pierwsze wymienione wymaganie odnośnie niezbalansowania, jednak wymaganie odnośnie wystąpienia w strumieniu konkretnego typu zmiany było często niemożliwe do spełnienia.
 
 W tym przypadku bardzo pomocna okazała się praca naukowa \cite{Article:TypyPrzykladow}, w której autorzy analizują wpływ zachowania różnych typów zmian na trafność klasyfikacji popularnych algorytmów. W ramach swojej pracy autorzy utworzyli generator strumieni danych, którego zadaniem jest stworzenie odpowiedniego strumienia danych wraz z odpowiednimi własnościami, które zostały przekazane jako parametr do generatora. Omawiany generator strumieni danych jest m.in. dostępny na platformie \textit{GitHub}\footnote{\url{https://github.com/dabrze/imbalanced-stream-generator}}. Implementacja dotyczy wykorzystywanego w pracy środowiska \textit{MOA} \cite{Article:MOA}.
 
@@ -11,7 +11,7 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
 
 \section{Typy zmian obsługiwanych przez generator}
 
-\noindent W ramach swojego działania, opisany w sekcji powyżej, generator obejmuje wszystkie typy zmian, które opisano w sekcji \ref{Section:DriftDataDistribution}. Zmiany te nie tylko są powiązane z problemem niezbalansowania klas, ale także ze zmianami w rozkładach danych danej klasy w czasie. Obsługiwane przez generator typy zmian prezentują się następująco:
+\noindent W ramach swojego działania, opisany w sekcji powyżej, generator obejmuje wszystkie typy zmian, które opisano w sekcji \ref{Section:DriftDataDistribution}. Zmiany te, nie tylko są powiązane z problemem niezbalansowania klas, ale także ze zmianami w rozkładach danych danej klasy w czasie. Obsługiwane przez generator typy zmian prezentują się następująco:
 
 \begin{itemize}
     \item Static Imbalance (SI) - określa procent przykładów z klasy mniejszościowej znajdujących się w strumieniu przez cały okres działania algorytmu
@@ -37,7 +37,7 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
 
 \section{Proces generowania danych}
 
-\noindent Wiedząc w jaki sposób osiągnąć określony typ zmian w strumieniu danych, kolejnym krokiem był proces wygenerowania wszystkich potrzebnych strumieni danych do nauki algorytmów. W tym celu zdecydowano się wygenerować wiele różnych przypadków zawierających różne typy zmian, które zostały opisane we wcześniejszej sekcji. Szczegółową konfigurację parametrów można przeanalizować z rysunku \ref{Figure:DriftParameters}.
+\noindent Wiedząc, w jaki sposób osiągnąć określony typ zmian w strumieniu danych, kolejnym krokiem był proces wygenerowania wszystkich potrzebnych strumieni danych do nauki algorytmów. W tym celu zdecydowano się wygenerować wiele różnych przypadków zawierających różne typy zmian, które zostały opisane we wcześniejszej sekcji. Szczegółową konfigurację parametrów można przeanalizować z rysunku \ref{Figure:DriftParameters}.
 
 \begin{figure}[h] 
     \centering
@@ -48,14 +48,14 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
 \begin{figure}[h] 
     \centering
     \includegraphics[width=13cm]{figures/drift_categorization.JPG}
-    \caption{Wartości parametrów wykorzystanych do generacji strumieni danych \cite{Article:TypyPrzykladow}}\label{Figure:DriftCategorization}
+    \caption{Kategoryzacja typów zmian w wygenerowanych strumieniach danych \cite{Article:TypyPrzykladow}}\label{Figure:DriftCategorization}
 \end{figure}
 
-\noindent Jak można zauważyć z rysunku \ref{Figure:DriftCategorization}, w niniejszej analizie sprawdzone zostaną przypadki strumieni danych, które zawierają: jeden czynnik trudności (\english{single factors}), pary czynników trudności (\english{pairs of factors}) oraz złożone scenariusze zawierające wiele czynników trudności (\english{complex scenarios}). Taka analiza ma za zadanie wskazać, wśród określonych eksperymentów, typy zmian, z którymi algorytmy radzą sobie najgorzej, poprzez naukę na strumieniach z jednym aspektem trudności. Poza tym kolejnym celem jest przetestowanie, jak algorytmy radzą sobie ze strumieniami danych zawierającymi wiele aspektów trudności. Wygenerowane w ten sposób strumienie danych są dobrym odwzorowaniem rzeczywistych danych, które w rzeczywistości zawierają wiele czynników trudności, nieraz trudnych do zdefiniowania. W ten sposób będzie wiadomo, które algorytmy mogłyby sobie poradzić z analizą rzeczywistych danych i znalazłyby zastosowanie w dzisiejszym świecie.
+\noindent Jak można zauważyć z rysunku \ref{Figure:DriftCategorization}, w niniejszej analizie sprawdzone zostaną przypadki strumieni danych, które zawierają: jeden czynnik trudności (\english{single factors}), pary czynników trudności (\english{pairs of factors}) oraz złożone scenariusze zawierające wiele czynników trudności (\english{complex scenarios}). Taka analiza ma za zadanie wskazać, wśród określonych eksperymentów, typy zmian, z którymi algorytmy radzą sobie najgorzej, poprzez naukę na strumieniach z jednym aspektem trudności. Poza tym kolejnym celem jest przetestowanie, jak algorytmy radzą sobie ze strumieniami danych zawierającymi wiele aspektów trudności. Wygenerowane w ten sposób strumienie danych są dobrym odwzorowaniem rzeczywistych danych, które w rzeczywistości zawierają wiele czynników trudności, nieraz trudnych do zdefiniowania.
 
 \section{Przykładowe instancje wygenerowanych strumieni danych}
 
-\noindent W ramach niniejszej sekcji przedstawione zostaną przykładowe instancje wygenerowanych strumieni danych wraz z wytłumaczeniem konwencji nazewnictwa, która jest wykorzystywana w dalszej części pracy. W ramach procesu generacji udało się stworzyć 381 różnych instancji strumieni danych biorąc pod uwagę różnego rodzaje typy zmian, które mogą zajść w strumieniu oraz możliwość zaistnienia kilku typów zmian jednocześnie. Warto też zwrócić uwagę na fakt, że każdy z stworzonych strumieni danych zawiera dokładnie 200 000 przykładów, gdzie każdy przykład opisany jest przez 5 atrybutów numerycznych oraz etykietę binarną. Jeżeli w strumieniu występuje dryf pojęć to jest to dryf stopniowy (\textit{incremental}), który ma miejsce od momentu przetwarzania przykładu numer 70 000 do momentu przetworzenia przykładu numer 100 000. Dodatkowo każda z klas, przed możliwym wystąpieniem dryfu, jest równoliczna (jeśli nie skorzystano z opcji \textit{StaticIm}) oraz wszystkie przykłady z klasy mniejszościowej oraz większościowej oznaczone są oznaczone jako typ \textit{Safe}. Jeden z przykładów z pracy \cite{Article:TypyPrzykladow} obrazujący podstawowe miary badanych strumieni można przeanalizować na rysunku \ref{Figure:DriftExample}.
+\noindent W ramach niniejszej sekcji przedstawione zostaną przykładowe instancje wygenerowanych strumieni danych wraz z wytłumaczeniem konwencji nazewnictwa, która jest wykorzystywana w dalszej części pracy. W ramach procesu generacji udało się stworzyć 381 różnych instancji strumieni danych, biorąc pod uwagę różnego rodzaje typy zmian, które mogą zajść w strumieniu oraz możliwość zaistnienia kilku typów zmian jednocześnie. Warto też zwrócić uwagę na fakt, że każdy z stworzonych strumieni danych zawiera dokładnie 200 000 przykładów, gdzie każdy przykład opisany jest przez 5 atrybutów numerycznych oraz etykietę binarną. Jeżeli w strumieniu występuje dryf pojęć to jest to dryf stopniowy (\textit{incremental}), który ma miejsce od momentu przetwarzania przykładu numer 70 000 do momentu przetworzenia przykładu numer 100 000. Dodatkowo każda z klas, przed możliwym wystąpieniem dryfu, jest równoliczna (jeśli nie skorzystano z opcji \textit{StaticIm}) oraz wszystkie przykłady z klasy mniejszościowej oraz większościowej oznaczone są jako typ \textit{Safe}. Jeden z przykładów z pracy \cite{Article:TypyPrzykladow} obrazujący podstawowe miary badanych strumieni można przeanalizować na rysunku \ref{Figure:DriftExample}.
 
 \begin{figure}[h]
     \centering
@@ -63,7 +63,7 @@ W ramach niniejszego rozdziału zostanie szerzej omówiony sposób korzystania z
     \caption{Ocena jednego z przykładowych strumieni danych zaprezentowanego w pracy \cite{Article:TypyPrzykladow}}\label{Figure:DriftExample}
 \end{figure}
 
-W dalszej części pracy będzie wykorzystywana określona konwencja nazewnictwa wygenerowanych strumieni danych. Wykorzystana konwencja została wytłumaczona poniżej na kilku przykładach wygenerowanych nazw:
+W dalszej części pracy będzie wykorzystywana określony schemat nazewnictwa wygenerowanych strumieni danych. Wykorzystana konwencja została wytłumaczona poniżej na kilku przykładach wygenerowanych nazw:
 
 \begin{itemize}
     \item \textit{Borderline20+Rare20} - oznacza napływ 20\% przykładów typu \textit{Borderline} i \textit{Rare} podczas zaobserwowanego dryfu
